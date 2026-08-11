@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as InstitucionalRouteImport } from './routes/institucional'
+import { Route as PatologiasIndexRouteImport } from './routes/patologias.index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -22,31 +23,40 @@ const InstitucionalRoute = InstitucionalRouteImport.update({
   path: '/institucional',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PatologiasIndexRoute = PatologiasIndexRouteImport.update({
+  id: '/patologias/',
+  path: '/patologias/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/institucional': typeof InstitucionalRoute
+  '/patologias/': typeof PatologiasIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/institucional': typeof InstitucionalRoute
+  '/patologias': typeof PatologiasIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/institucional': typeof InstitucionalRoute
+  '/patologias/': typeof PatologiasIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/institucional'
+  fullPaths: '/' | '/institucional' | '/patologias/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/institucional'
-  id: '__root__' | '/' | '/institucional'
+  to: '/' | '/institucional' | '/patologias'
+  id: '__root__' | '/' | '/institucional' | '/patologias/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   InstitucionalRoute: typeof InstitucionalRoute
+  PatologiasIndexRoute: typeof PatologiasIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -65,12 +75,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InstitucionalRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/patologias/': {
+      id: '/patologias/'
+      path: '/patologias'
+      fullPath: '/patologias/'
+      preLoaderRoute: typeof PatologiasIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   InstitucionalRoute: InstitucionalRoute,
+  PatologiasIndexRoute: PatologiasIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
