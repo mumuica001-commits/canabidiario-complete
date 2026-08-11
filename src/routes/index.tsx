@@ -265,9 +265,8 @@ function Index() {
                   <h3 className="mt-4 font-sans text-[18px] font-semibold leading-snug text-ink group-hover:text-pine">
                     {p.nome}
                   </h3>
-
                   <p className="mt-2.5 line-clamp-3 text-xs text-ink-soft leading-relaxed">
-                    {p.descricao ||
+                    {(p as any).descricao ||
                       "Acompanhamento especializado para manejo da dor, modulação sintomática e suporte contínuo com medicina canabinoide."}
                   </p>
                 </div>

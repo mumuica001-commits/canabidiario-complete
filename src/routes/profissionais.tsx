@@ -1,160 +1,228 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { ActionLink, Eyebrow, PageHero, WHATSAPP } from "../components/site/ui";
-import { Reveal } from "../components/site/Reveal";
+import { useState } from 'react'
+import { createFileRoute } from '@tanstack/react-router'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Search, Stethoscope, CheckCircle2, UserPlus, Send } from 'lucide-react'
 
-export const Route = createFileRoute("/profissionais")({
-  head: () => ({
-    meta: [
-      { title: "Profissionais associados — Canabidiário" },
-      {
-        name: "description",
-        content:
-          "Profissionais habilitados na prescrição de cannabis medicinal. Saiba como se associar ou colaborar com a associação Canabidiário.",
-      },
-      { property: "og:title", content: "Profissionais associados — Canabidiário" },
-      {
-        property: "og:description",
-        content: "Como se associar, colaborar e integrar a rede de profissionais prescritores.",
-      },
+export const Route = createFileRoute('/profissionais')({
+  component: ProfissionaisPage,
+})
+
+// Dados oficiais do Canabidiário
+const PROFISSIONAIS = [
+  {
+    id: 1,
+    nome: 'Jonas Souza',
+    titulo: 'Médico',
+    registro: 'CRM-PR: 60738',
+    especialidade: 'Medicina Canabinoide',
+    foto: '/profissionais/Jonas Souza.jpg',
+    detalhes: [
+      'Farmacologia e Toxicologia dos Canabinoides - Unicamp',
+      'Certificação em Endocanabinologia - WeCann Academy',
     ],
-  }),
-  component: Profissionais,
-});
-
-const areas = [
-  {
-    area: "Odontologia · Dor orofacial",
-    foco: "DTM, neuralgia do trigêmeo, bruxismo, mucosite e doença periodontal",
-    texto:
-      "Avaliação da articulação temporomandibular e da musculatura facial, com plano terapêutico integrado.",
   },
   {
-    area: "Neurologia",
-    foco: "Alzheimer, Parkinson e epilepsia",
-    texto:
-      "Acompanhamento complementar ao tratamento neurológico, com foco em sono, dor e qualidade de vida.",
+    id: 2,
+    nome: 'Arthur de Oliveira Lima C.',
+    titulo: 'Médico',
+    registro: 'CRM-SP: 201.831',
+    especialidade: 'Clínica Médica / Saúde Mental',
+    foto: '/profissionais/Arthur.jpg',
+    detalhes: [
+      'Pós-graduação em Psiquiatria',
+      'Pós-graduação em Cannabis Medicinal - WeCann Academy',
+    ],
   },
   {
-    area: "Saúde mental",
-    foco: "Ansiedade e insônia",
-    texto:
-      "Condução gradual, respeitando medicações em uso e o acompanhamento psicoterápico do paciente.",
+    id: 3,
+    nome: 'Leticia M. Pivoto',
+    titulo: 'Médica',
+    registro: 'CRM-SP: 282.983',
+    especialidade: 'Medicina Canabinoide',
+    foto: '/profissionais/Leticia.jpg',
+    detalhes: ['Atendimento clínico e prescrição terapêutica individualizada.'],
   },
-];
+  {
+    id: 4,
+    nome: 'Helder Zanetti Herbella',
+    titulo: 'Cirurgião Dentista',
+    registro: 'CRO-SP: 36.451',
+    especialidade: 'Odontologia / DTM',
+    foto: '/profissionais/Helder.jpg',
+    detalhes: [
+      'Cirurgião dentista, implantodontista e radiologista',
+      'Pós-graduações em cirurgia oral menor, cannabis medicinal, auditoria, gestão e docência em cursos superiores',
+    ],
+  },
+  {
+    id: 5,
+    nome: 'Mariah Melrinho',
+    titulo: 'Médica Veterinária',
+    registro: 'CRMV-SP: 57706',
+    especialidade: 'Veterinária Canabinoide',
+    foto: '/profissionais/Mariah.jpg',
+    detalhes: [
+      'Especialista em clínica médica de pequenos animais',
+      'Medicina Canabinoide e Pós-graduanda em Diagnóstico por Imagem',
+    ],
+  },
+]
 
-const beneficios = [
-  ["Rede de encaminhamento", "Pacientes chegam já orientados sobre etapas e expectativas do tratamento."],
-  ["Atualização técnica", "Materiais e encontros sobre evidência clínica em canabinoides."],
-  ["Suporte administrativo", "Apoio da associação no caminho entre prescrição e acesso ao medicamento."],
-  ["Produção de conteúdo", "Espaço para publicar artigos assinados no canal da associação."],
-];
+function ProfissionaisPage() {
+  const [busca, setBusca] = useState('')
+  const [categoria, setCategoria] = useState('todos')
 
-const passos = [
-  { num: "01", t: "Envie seu contato", d: "Fale com a associação pelo WhatsApp informando sua área de atuação e registro profissional." },
-  { num: "02", t: "Conversa de alinhamento", d: "Uma reunião para entender sua prática clínica e apresentar o funcionamento da associação." },
-  { num: "03", t: "Integração à rede", d: "Cadastro, orientações sobre fluxo de encaminhamento e início dos atendimentos." },
-];
+  const profissionaisFiltrados = PROFISSIONAIS.filter((prof) => {
+    const termo = busca.toLowerCase()
+    const combinaBusca =
+      prof.nome.toLowerCase().includes(termo) ||
+      prof.especialidade.toLowerCase().includes(termo) ||
+      prof.registro.toLowerCase().includes(termo)
 
-function Profissionais() {
+    const combinaCategoria =
+      categoria === 'todos' ||
+      (categoria === 'medicos' && (prof.titulo.includes('Médic') || prof.titulo.includes('Médica'))) ||
+      (categoria === 'dentistas' && prof.titulo.includes('Dentista')) ||
+      (categoria === 'veterinarios' && prof.titulo.includes('Veterinári'))
+
+    return combinaBusca && combinaCategoria
+  })
+
   return (
-    <main>
-      <PageHero
-        eyebrow="Profissionais"
-        title={
-          <>
-            Uma rede clínica que trata cannabis como{" "}
-            <em className="italic text-amber-deep">assunto de ciência.</em>
-          </>
-        }
-        lede="Reunimos profissionais habilitados que acompanham pacientes com dor orofacial, condições neurológicas e ansiedade — com critério, registro e retorno programado."
-      >
-        <ActionLink href={WHATSAPP} variant="amber">
-          Quero me associar
-        </ActionLink>
-        <ActionLink to="/contato" variant="ghost">
-          Quero colaborar
-        </ActionLink>
-      </PageHero>
-
-      <section className="py-24">
-        <div className="wrap">
-          <Eyebrow>Áreas de atuação</Eyebrow>
-          <h2 className="mb-12 mt-4 text-[clamp(26px,3.2vw,38px)]">Quem atende na associação</h2>
-          <div className="grid gap-px border border-border-strong bg-border-strong lg:grid-cols-3">
-            {areas.map((a, i) => (
-              <Reveal key={a.area} delay={i * 70} className="flex flex-col gap-4 bg-card p-8">
-                <span className="font-mono text-[11px] uppercase tracking-[0.1em] text-amber-deep">
-                  {a.area}
-                </span>
-                <h3 className="font-serif text-[21px] italic leading-[1.3]">{a.foco}</h3>
-                <p className="text-[15px] text-ink-soft">{a.texto}</p>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-pine py-24 text-paper">
-        <div className="wrap">
-          <Eyebrow tone="soft">Quero me associar</Eyebrow>
-          <h2 className="mb-12 mt-4 max-w-[640px] text-[clamp(26px,3.2vw,38px)] leading-[1.15] text-paper">
-            Três passos para integrar a rede de profissionais.
-          </h2>
-          <div className="grid border-t border-paper/20 md:grid-cols-3">
-            {passos.map((p, i) => (
-              <Reveal
-                key={p.num}
-                delay={i * 80}
-                className={`py-10 pr-8 ${i < 2 ? "md:border-r md:border-paper/20" : ""}`}
-              >
-                <span className="mb-5 block font-mono text-[13px] text-amber-soft">{p.num}</span>
-                <h3 className="mb-3 font-serif text-[22px] font-normal italic text-paper">{p.t}</h3>
-                <p className="max-w-[280px] text-[14.5px] text-paper/70">{p.d}</p>
-              </Reveal>
-            ))}
-          </div>
-          <div className="mt-12">
-            <ActionLink href={WHATSAPP} variant="amber">
-              Falar com a associação
-            </ActionLink>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-24">
-        <div className="wrap">
-          <Eyebrow>Benefícios</Eyebrow>
-          <h2 className="mb-12 mt-4 text-[clamp(26px,3.2vw,38px)]">O que a associação oferece</h2>
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-            {beneficios.map(([t, d], i) => (
-              <Reveal key={t} delay={i * 60} className="border-t border-border-strong pt-5">
-                <h3 className="font-serif text-[20px]">{t}</h3>
-                <p className="mt-2.5 text-[15px] text-ink-soft">{d}</p>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="border-t border-border bg-paper-deep py-24">
-        <div className="wrap grid items-center gap-10 lg:grid-cols-[1.3fr_1fr]">
-          <div>
-            <Eyebrow>Quero colaborar</Eyebrow>
-            <h2 className="mb-4 mt-4 text-[clamp(26px,3.2vw,38px)]">
-              Pesquisa, conteúdo e voluntariado.
-            </h2>
-            <p className="max-w-[520px] text-ink-soft">
-              Pesquisadores, estudantes e profissionais de comunicação também podem contribuir — com
-              revisão de conteúdo, produção de material educativo e apoio em ações da associação.
+    <div className="min-h-screen flex flex-col bg-slate-50 font-sans text-slate-800">
+      <main className="flex-1">
+        {/* Banner Institucional Sóbrio */}
+        <section className="bg-emerald-900 text-white py-12 px-4 sm:px-6 lg:px-8 border-b border-emerald-950">
+          <div className="max-w-5xl mx-auto text-center space-y-3">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-800 text-emerald-100 text-xs font-medium rounded-md">
+              <CheckCircle2 className="w-3.5 h-3.5" />
+              Profissionais Cadastrados e Parceiros
+            </span>
+            <h1 className="text-2xl sm:text-4xl font-bold tracking-tight">
+              Corpo Clínico & Prescritores
+            </h1>
+            <p className="text-emerald-100 max-w-2xl mx-auto text-sm sm:text-base">
+              Conheça os profissionais de saúde habilitados para orientação, tratamento e acompanhamento com cannabis medicinal.
             </p>
           </div>
-          <div className="flex flex-wrap gap-4">
-            <ActionLink to="/contato" variant="primary">
-              Enviar proposta
-            </ActionLink>
+        </section>
+
+        {/* Filtros e Busca */}
+        <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6">
+          <Card className="bg-white border border-slate-200 shadow-sm rounded-lg">
+            <CardContent className="p-4 sm:p-6 grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
+              <div className="relative sm:col-span-2">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                <Input
+                  type="text"
+                  placeholder="Buscar por nome, especialidade ou registro..."
+                  value={busca}
+                  onChange={(e) => setBusca(e.target.value)}
+                  className="pl-9 bg-slate-50 border-slate-200 focus-visible:ring-emerald-600"
+                />
+              </div>
+
+              <div>
+                <Select value={categoria} onValueChange={setCategoria}>
+                  <SelectTrigger className="bg-slate-50 border-slate-200 focus:ring-emerald-600">
+                    <SelectValue placeholder="Categoria" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="todos">Todas as Áreas</SelectItem>
+                    <SelectItem value="medicos">Medicina Humanos</SelectItem>
+                    <SelectItem value="dentistas">Odontologia</SelectItem>
+                    <SelectItem value="veterinarios">Medicina Veterinária</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </CardContent>
+          </Card>
+        </section>
+
+        {/* Lista de Profissionais */}
+        <section className="py-12 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          {profissionaisFiltrados.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {profissionaisFiltrados.map((prof) => (
+                <Card key={prof.id} className="bg-white border border-slate-200 shadow-sm hover:border-emerald-300 transition-colors flex flex-col justify-between overflow-hidden">
+                  <CardContent className="p-6 space-y-4">
+                    <div className="flex items-center gap-4">
+                      <img
+                        src={prof.foto}
+                        alt={prof.nome}
+                        onError={(e) => {
+                          e.currentTarget.onerror = null
+                          e.currentTarget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(prof.nome)}&background=065f46&color=fff`
+                        }}
+                        className="w-20 h-24 rounded-md object-cover border border-slate-200 shrink-0 bg-slate-100"
+                      />
+                      <div className="space-y-1">
+                        <span className="text-[11px] font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-100 inline-block">
+                          {prof.titulo}
+                        </span>
+                        <h3 className="text-base font-bold text-slate-900 leading-snug">{prof.nome}</h3>
+                        <p className="text-xs font-mono text-slate-500">{prof.registro}</p>
+                        <p className="text-xs font-medium text-emerald-700">{prof.especialidade}</p>
+                      </div>
+                    </div>
+
+                    <div className="border-t border-slate-100 pt-3 space-y-1.5">
+                      {prof.detalhes.map((item, idx) => (
+                        <p key={idx} className="text-xs text-slate-600 leading-relaxed flex items-start gap-1.5">
+                          <span className="text-emerald-600 font-bold">•</span>
+                          <span>{item}</span>
+                        </p>
+                      ))}
+                    </div>
+                  </CardContent>
+
+                  <div className="p-6 pt-0">
+                    <a
+                      href="https://wa.me/5518992027116"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center justify-center gap-2 w-full bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-medium py-2.5 rounded-md transition-colors"
+                    >
+                      <Send className="w-3.5 h-3.5" />
+                      Consultar Profissional
+                    </a>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12 bg-white rounded-lg border border-slate-200">
+              <p className="text-slate-500 text-sm">Nenhum profissional encontrado para os filtros selecionados.</p>
+            </div>
+          )}
+        </section>
+
+        {/* CTA Profissionais da Saúde */}
+        <section className="bg-emerald-50 py-12 border-t border-emerald-100">
+          <div className="max-w-4xl mx-auto text-center px-4 space-y-4">
+            <div className="inline-flex p-3 bg-white text-emerald-800 rounded-full shadow-xs border border-emerald-100">
+              <UserPlus className="w-6 h-6" />
+            </div>
+            <h2 className="text-xl sm:text-2xl font-bold text-emerald-950">Profissional da Saúde: Torne-se Sócio!</h2>
+            <p className="text-slate-600 text-sm sm:text-base max-w-xl mx-auto">
+              Se você prescreve ou deseja iniciar tratamentos com medicina canabinoide, associar-se garante apoio técnico, respaldo científico e suporte aos seus pacientes.
+            </p>
+            <div>
+              <a
+                href="/seja-um-associado"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 bg-emerald-800 hover:bg-emerald-900 text-white font-medium text-xs sm:text-sm px-6 py-3 rounded-md transition-colors"
+              >
+                Quero Me Associar
+              </a>
+            </div>
           </div>
-        </div>
-      </section>
-    </main>
-  );
+        </section>
+      </main>
+    </div>
+  )
 }

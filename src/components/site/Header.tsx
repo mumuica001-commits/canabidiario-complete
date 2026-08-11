@@ -2,20 +2,14 @@ import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ActionLink, WHATSAPP } from "./ui";
 
+// Mantenha a exportação do Logo para não quebrar outros arquivos que importam { Logo }
 export function Logo({ className = "" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 32 32" fill="none" className={className} aria-hidden="true">
-      <path
-        d="M16 3C16 3 20 9 20 15C20 18.5 18.5 21 16 23C13.5 21 12 18.5 12 15C12 9 16 3 16 3Z"
-        stroke="currentColor"
-        strokeWidth="1.4"
-      />
-      <path d="M16 23V29" stroke="currentColor" strokeWidth="1.4" />
-      <path d="M16 15C16 15 12 12 8 13" stroke="currentColor" strokeWidth="1.2" />
-      <path d="M16 15C16 15 20 12 24 13" stroke="currentColor" strokeWidth="1.2" />
-      <path d="M16 19C16 19 13 17 10 17.6" stroke="currentColor" strokeWidth="1.2" />
-      <path d="M16 19C16 19 19 17 22 17.6" stroke="currentColor" strokeWidth="1.2" />
-    </svg>
+    <img
+      src="https://canabidiario.com.br/wp-content/uploads/2024/09/Canabidiario.png"
+      alt="Canabidiário Logo"
+      className={`h-9 w-auto object-contain ${className}`}
+    />
   );
 }
 
@@ -32,20 +26,20 @@ export function Header() {
 
   return (
     <>
+      {/* Barra de topo sem o termo 'Associação sem fins lucrativos' */}
       <div className="bg-pine px-5 py-2 text-center font-mono text-[12.5px] tracking-[0.02em] text-paper">
-        Associação sem fins lucrativos — orientação e acompanhamento{" "}
+        Canabidiário — orientação e acompanhamento{" "}
         <b className="font-medium text-amber-soft">com profissionais habilitados</b>, conforme a
         legislação vigente.
       </div>
 
       <header className="sticky top-0 z-100 border-b border-border bg-paper/90 backdrop-blur-md">
-        <div className="mx-auto flex max-w-[1180px] items-center justify-between px-5 py-4 md:px-8 md:py-[18px]">
+        <div className="mx-auto flex max-w-[1180px] items-center justify-between px-5 py-3 md:px-8">
           <Link
             to="/"
             className="flex items-center gap-2.5 font-serif text-[22px] font-medium text-pine"
           >
-            <Logo className="h-[26px] w-[26px] shrink-0" />
-            Canabidiário
+            <Logo className="h-9" />
           </Link>
 
           <nav className="hidden items-center gap-8 text-[14.5px] font-medium lg:flex">
@@ -85,16 +79,16 @@ export function Header() {
         </div>
       </header>
 
+      {/* Menu Mobile */}
       <div
         className={`fixed inset-0 z-200 flex flex-col gap-8 bg-paper px-6 py-6 transition-transform duration-300 lg:hidden ${
           open ? "translate-x-0" : "translate-x-full"
         }`}
       >
         <div className="flex items-center justify-between">
-          <span className="flex items-center gap-2.5 font-serif text-[22px] font-medium text-pine">
-            <Logo className="h-[26px] w-[26px]" />
-            Canabidiário
-          </span>
+          <Link to="/" onClick={() => setOpen(false)}>
+            <Logo className="h-8" />
+          </Link>
           <button onClick={() => setOpen(false)} aria-label="Fechar menu" className="p-1.5 text-3xl leading-none text-pine">
             ×
           </button>

@@ -1,162 +1,124 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { ActionLink, Eyebrow, PageHero, WHATSAPP } from "../components/site/ui";
-import { Reveal } from "../components/site/Reveal";
+import { createFileRoute } from '@tanstack/react-router'
+import { Header } from '@/components/site/Header'
+import { Footer } from '@/components/site/Footer'
+import { Card, CardContent } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import { CheckCircle2, ShieldCheck, Target, Users, BookOpen, ArrowRight } from 'lucide-react'
 
-export const Route = createFileRoute("/institucional")({
-  head: () => ({
-    meta: [
-      { title: "Institucional — Canabidiário" },
-      {
-        name: "description",
-        content:
-          "Conheça a associação Canabidiário: missão, objetivos, princípios e estatuto da associação de cannabis medicinal.",
-      },
-      { property: "og:title", content: "Institucional — Canabidiário" },
-      {
-        property: "og:description",
-        content: "Missão, objetivos e estatuto da associação Canabidiário.",
-      },
-    ],
-  }),
-  component: Institucional,
-});
+export const Route = createFileRoute('/institucional')({
+  component: InstitucionalPage,
+})
 
-const objetivos = [
-  {
-    num: "01",
-    titulo: "Ampliar o acesso",
-    texto:
-      "Aproximar pacientes de profissionais habilitados a prescrever cannabis medicinal, reduzindo a distância entre diagnóstico e tratamento.",
-  },
-  {
-    num: "02",
-    titulo: "Informar com rigor",
-    texto:
-      "Produzir e divulgar conteúdo baseado em evidência científica, combatendo desinformação sobre canabinoides.",
-  },
-  {
-    num: "03",
-    titulo: "Formar profissionais",
-    texto:
-      "Promover atualização técnica entre dentistas, médicos e demais profissionais de saúde interessados na área.",
-  },
-  {
-    num: "04",
-    titulo: "Acompanhar de perto",
-    texto:
-      "Sustentar um acompanhamento contínuo, com retornos programados e registro da evolução de cada paciente.",
-  },
-];
-
-const principios = [
-  ["Legalidade", "Toda orientação segue a legislação vigente e a regulação sanitária brasileira."],
-  ["Evidência", "Nenhuma promessa de cura. Só o que a literatura clínica sustenta."],
-  ["Acolhimento", "Escuta antes de protocolo: cada história clínica tem um contexto."],
-  ["Transparência", "Etapas, custos e expectativas explicados desde a primeira conversa."],
-];
-
-function Institucional() {
+function InstitucionalPage() {
   return (
-    <main>
-      <PageHero
-        eyebrow="Institucional"
-        title={
-          <>
-            Uma associação criada para <em className="italic text-amber-deep">encurtar caminhos</em>{" "}
-            entre paciente e tratamento.
-          </>
-        }
-        lede="O Canabidiário nasceu da prática clínica com dor orofacial e da constatação de que muitos pacientes chegavam ao consultório depois de anos sem resposta."
-      >
-        <ActionLink href={WHATSAPP} variant="amber">
-          Falar com a associação
-        </ActionLink>
-        <ActionLink to="/patologias" variant="ghost">
-          Patologias acompanhadas
-        </ActionLink>
-      </PageHero>
+    <div className="min-h-screen flex flex-col bg-slate-50 font-sans text-slate-800">
+      <Header />
 
-      <section className="py-24">
-        <div className="wrap grid gap-14 lg:grid-cols-[1fr_1fr]">
-          <Reveal>
-            <Eyebrow>Sobre a associação</Eyebrow>
-            <h2 className="mt-4 text-[clamp(26px,3.2vw,38px)] leading-[1.15]">
-              Ciência, acolhimento e acompanhamento contínuo.
+      <main className="flex-1">
+        {/* Banner de Destaque Institucional */}
+        <section className="bg-emerald-900 text-white py-16 px-4 sm:px-6 lg:px-8 border-b border-emerald-950">
+          <div className="max-w-4xl mx-auto text-center space-y-4">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-800 text-emerald-100 text-xs font-medium rounded-md">
+              <ShieldCheck className="w-3.5 h-3.5" />
+              Quem Somos
+            </span>
+            <h1 className="text-3xl sm:text-5xl font-bold tracking-tight">
+              A Plataforma Canabidiário
+            </h1>
+            <p className="text-emerald-100 max-w-2xl mx-auto text-base sm:text-lg leading-relaxed">
+              Conectamos ciência, medicina e tecnologia para democratizar e desmistificar o acesso à saúde canabinoide no Brasil.
+            </p>
+          </div>
+        </section>
+
+        {/* Sobre a Empresa / Ecossistema */}
+        <section className="py-16 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-white border border-slate-200 rounded-lg p-8 sm:p-10 shadow-xs space-y-6">
+            <h2 className="text-2xl font-bold text-slate-900 border-b border-slate-100 pb-4">
+              Nossa Atuação
             </h2>
-          </Reveal>
-          <Reveal delay={80} className="flex flex-col gap-5 text-[16px] text-ink-soft">
-            <p>
-              Somos uma associação sem fins lucrativos dedicada a conectar pacientes a profissionais
-              habilitados na prescrição de cannabis medicinal. Atuamos principalmente em dor
-              orofacial, condições neurológicas e saúde mental.
+            <p className="text-slate-600 text-base leading-relaxed">
+              O <strong className="text-slate-900 font-semibold">Canabidiário</strong> nasceu como uma iniciativa para estruturar e profissionalizar o mercado de medicina canabinoide no país. Atuamos como um hub integrado de informação médica de precisão, suporte ao paciente e aproximação com profissionais de saúde devidamente habilitados.
             </p>
-            <p>
-              O trabalho começa na consulta e não termina na receita: a associação apoia o paciente
-              na compreensão do tratamento, no acesso ao medicamento prescrito e no
-              acompanhamento da evolução ao longo do tempo.
+            <p className="text-slate-600 text-base leading-relaxed">
+              Nosso compromisso é fornecer conteúdos fundamentados em evidências científicas, orientar sobre os caminhos regulatórios junto aos órgãos competentes (como a ANVISA) e garantir que o tratamento com fitocanabinoides ocorra com total segurança, acompanhamento e eficácia.
             </p>
-            <p>
-              Não vendemos produtos e não substituímos consulta médica ou odontológica. Nosso papel é
-              organizar o caminho — do diagnóstico à farmácia — com informação de qualidade.
-            </p>
-          </Reveal>
-        </div>
-      </section>
+          </div>
+        </section>
 
-      <section className="border-y border-border bg-paper-deep py-24">
-        <div className="wrap">
-          <Eyebrow>Objetivos</Eyebrow>
-          <h2 className="mb-12 mt-4 text-[clamp(26px,3.2vw,38px)]">O que nos move</h2>
-          <div className="grid gap-px border border-border-strong bg-border-strong md:grid-cols-2">
-            {objetivos.map((o, i) => (
-              <Reveal key={o.num} delay={i * 70} className="bg-card p-8">
-                <span className="font-mono text-[13px] text-amber-deep">{o.num}</span>
-                <h3 className="mb-3 mt-4 font-serif text-[22px] italic">{o.titulo}</h3>
-                <p className="text-[15px] text-ink-soft">{o.texto}</p>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
+        {/* Pilares Estratégicos */}
+        <section className="py-12 bg-slate-100/70 border-y border-slate-200">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center max-w-2xl mx-auto mb-12 space-y-2">
+              <h2 className="text-2xl font-bold text-slate-900">Nossos Objetivos</h2>
+              <p className="text-slate-600 text-sm">
+                Valores que guiam nossa atuação no ecossistema da saúde.
+              </p>
+            </div>
 
-      <section className="py-24">
-        <div className="wrap">
-          <Eyebrow>Princípios</Eyebrow>
-          <h2 className="mb-12 mt-4 text-[clamp(26px,3.2vw,38px)]">Como conduzimos o cuidado</h2>
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-            {principios.map(([titulo, texto], i) => (
-              <Reveal key={titulo} delay={i * 70} className="border-t border-border-strong pt-5">
-                <h3 className="font-serif text-[20px]">{titulo}</h3>
-                <p className="mt-2.5 text-[15px] text-ink-soft">{texto}</p>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <Card className="bg-white border border-slate-200 shadow-xs">
+                <CardContent className="p-6 space-y-3">
+                  <div className="p-3 bg-emerald-100 text-emerald-800 rounded-lg w-fit">
+                    <BookOpen className="w-6 h-6" />
+                  </div>
+                  <h3 className="text-lg font-bold text-slate-900">Educação e Ciência</h3>
+                  <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">
+                    Produção e curadoria de artigos técnicos e científicos sobre a cannabis medicinal para médicos, dentistas e pacientes.
+                  </p>
+                </CardContent>
+              </Card>
 
-      <section className="border-t border-border bg-paper-deep py-24">
-        <div className="wrap grid items-center gap-10 lg:grid-cols-[1.3fr_1fr]">
-          <div>
-            <Eyebrow>Estatuto</Eyebrow>
-            <h2 className="mb-4 mt-4 text-[clamp(26px,3.2vw,38px)]">
-              Regras claras, registradas em documento.
-            </h2>
-            <p className="max-w-[520px] text-ink-soft">
-              O estatuto define a finalidade da associação, os direitos e deveres de associados, a
-              estrutura de governança e a destinação de recursos. Solicite uma cópia integral pelo
-              WhatsApp ou pela página de contato.
-            </p>
+              <Card className="bg-white border border-slate-200 shadow-xs">
+                <CardContent className="p-6 space-y-3">
+                  <div className="p-3 bg-emerald-100 text-emerald-800 rounded-lg w-fit">
+                    <Users className="w-6 h-6" />
+                  </div>
+                  <h3 className="text-lg font-bold text-slate-900">Rede Integrada</h3>
+                  <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">
+                    Aproximação entre pessoas em busca de qualidade de vida e um corpo clínico especializado no sistema endocanabinoide.
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-white border border-slate-200 shadow-xs">
+                <CardContent className="p-6 space-y-3">
+                  <div className="p-3 bg-emerald-100 text-emerald-800 rounded-lg w-fit">
+                    <Target className="w-6 h-6" />
+                  </div>
+                  <h3 className="text-lg font-bold text-slate-900">Suporte Técnico</h3>
+                  <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">
+                    Orientação passo a passo sobre regulamentação, importação e acompanhamento pós-prescrição.
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
           </div>
-          <div className="flex flex-wrap gap-4">
-            <ActionLink href={WHATSAPP} variant="primary">
-              Solicitar estatuto
-            </ActionLink>
-            <ActionLink to="/contato" variant="ghost">
-              Página de contato
-            </ActionLink>
+        </section>
+
+        {/* Banner de Ação */}
+        <section className="py-16 max-w-4xl mx-auto px-4 text-center space-y-6">
+          <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">
+            Deseja saber mais sobre nossos serviços?
+          </h2>
+          <p className="text-slate-600 text-sm sm:text-base max-w-2xl mx-auto">
+            Nossa equipe de atendimento está à disposição para direcionar você ao profissional adequado ou fornecer informações sobre nossa atuação.
+          </p>
+          <div className="flex flex-wrap justify-center gap-4">
+            <a
+              href="https://wa.me/5518992027116"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 bg-emerald-700 hover:bg-emerald-800 text-white font-medium text-xs sm:text-sm px-6 py-3 rounded-md transition-colors"
+            >
+              Falar com o Atendimento
+              <ArrowRight className="w-4 h-4" />
+            </a>
           </div>
-        </div>
-      </section>
-    </main>
-  );
+        </section>
+      </main>
+
+      <Footer />
+    </div>
+  )
 }

@@ -14,6 +14,8 @@ import { Route as ContatoRouteImport } from './routes/contato'
 import { Route as InstitucionalRouteImport } from './routes/institucional'
 import { Route as NoticiasRouteImport } from './routes/noticias'
 import { Route as ProfissionaisRouteImport } from './routes/profissionais'
+import { Route as SejaUmAssociadoRouteImport } from './routes/seja-um-associado'
+import { Route as NoticiasSlugRouteImport } from './routes/noticias.$slug'
 import { Route as PatologiasIndexRouteImport } from './routes/patologias.index'
 import { Route as PatologiasSlugRouteImport } from './routes/patologias.$slug'
 
@@ -42,6 +44,16 @@ const ProfissionaisRoute = ProfissionaisRouteImport.update({
   path: '/profissionais',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SejaUmAssociadoRoute = SejaUmAssociadoRouteImport.update({
+  id: '/seja-um-associado',
+  path: '/seja-um-associado',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NoticiasSlugRoute = NoticiasSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => NoticiasRoute,
+} as any)
 const PatologiasIndexRoute = PatologiasIndexRouteImport.update({
   id: '/patologias/',
   path: '/patologias/',
@@ -57,8 +69,10 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/contato': typeof ContatoRoute
   '/institucional': typeof InstitucionalRoute
-  '/noticias': typeof NoticiasRoute
+  '/noticias': typeof NoticiasRouteWithChildren
   '/profissionais': typeof ProfissionaisRoute
+  '/seja-um-associado': typeof SejaUmAssociadoRoute
+  '/noticias/$slug': typeof NoticiasSlugRoute
   '/patologias/$slug': typeof PatologiasSlugRoute
   '/patologias/': typeof PatologiasIndexRoute
 }
@@ -66,8 +80,10 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/contato': typeof ContatoRoute
   '/institucional': typeof InstitucionalRoute
-  '/noticias': typeof NoticiasRoute
+  '/noticias': typeof NoticiasRouteWithChildren
   '/profissionais': typeof ProfissionaisRoute
+  '/seja-um-associado': typeof SejaUmAssociadoRoute
+  '/noticias/$slug': typeof NoticiasSlugRoute
   '/patologias/$slug': typeof PatologiasSlugRoute
   '/patologias': typeof PatologiasIndexRoute
 }
@@ -76,8 +92,10 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/contato': typeof ContatoRoute
   '/institucional': typeof InstitucionalRoute
-  '/noticias': typeof NoticiasRoute
+  '/noticias': typeof NoticiasRouteWithChildren
   '/profissionais': typeof ProfissionaisRoute
+  '/seja-um-associado': typeof SejaUmAssociadoRoute
+  '/noticias/$slug': typeof NoticiasSlugRoute
   '/patologias/$slug': typeof PatologiasSlugRoute
   '/patologias/': typeof PatologiasIndexRoute
 }
@@ -89,6 +107,8 @@ export interface FileRouteTypes {
     | '/institucional'
     | '/noticias'
     | '/profissionais'
+    | '/seja-um-associado'
+    | '/noticias/$slug'
     | '/patologias/$slug'
     | '/patologias/'
   fileRoutesByTo: FileRoutesByTo
@@ -98,6 +118,8 @@ export interface FileRouteTypes {
     | '/institucional'
     | '/noticias'
     | '/profissionais'
+    | '/seja-um-associado'
+    | '/noticias/$slug'
     | '/patologias/$slug'
     | '/patologias'
   id:
@@ -107,6 +129,8 @@ export interface FileRouteTypes {
     | '/institucional'
     | '/noticias'
     | '/profissionais'
+    | '/seja-um-associado'
+    | '/noticias/$slug'
     | '/patologias/$slug'
     | '/patologias/'
   fileRoutesById: FileRoutesById
@@ -115,8 +139,9 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ContatoRoute: typeof ContatoRoute
   InstitucionalRoute: typeof InstitucionalRoute
-  NoticiasRoute: typeof NoticiasRoute
+  NoticiasRoute: typeof NoticiasRouteWithChildren
   ProfissionaisRoute: typeof ProfissionaisRoute
+  SejaUmAssociadoRoute: typeof SejaUmAssociadoRoute
   PatologiasSlugRoute: typeof PatologiasSlugRoute
   PatologiasIndexRoute: typeof PatologiasIndexRoute
 }
@@ -158,6 +183,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProfissionaisRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/seja-um-associado': {
+      id: '/seja-um-associado'
+      path: '/seja-um-associado'
+      fullPath: '/seja-um-associado'
+      preLoaderRoute: typeof SejaUmAssociadoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/noticias/$slug': {
+      id: '/noticias/$slug'
+      path: '/$slug'
+      fullPath: '/noticias/$slug'
+      preLoaderRoute: typeof NoticiasSlugRouteImport
+      parentRoute: typeof NoticiasRoute
+    }
     '/patologias/': {
       id: '/patologias/'
       path: '/patologias'
@@ -175,12 +214,25 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface NoticiasRouteChildren {
+  NoticiasSlugRoute: typeof NoticiasSlugRoute
+}
+
+const NoticiasRouteChildren: NoticiasRouteChildren = {
+  NoticiasSlugRoute: NoticiasSlugRoute,
+}
+
+const NoticiasRouteWithChildren = NoticiasRoute._addFileChildren(
+  NoticiasRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ContatoRoute: ContatoRoute,
   InstitucionalRoute: InstitucionalRoute,
-  NoticiasRoute: NoticiasRoute,
+  NoticiasRoute: NoticiasRouteWithChildren,
   ProfissionaisRoute: ProfissionaisRoute,
+  SejaUmAssociadoRoute: SejaUmAssociadoRoute,
   PatologiasSlugRoute: PatologiasSlugRoute,
   PatologiasIndexRoute: PatologiasIndexRoute,
 }

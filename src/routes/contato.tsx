@@ -25,11 +25,11 @@ export const Route = createFileRoute("/contato")({
 const faq = [
   [
     "Preciso de encaminhamento médico para agendar?",
-    "Não. Você pode falar diretamente com a associação; a avaliação inicial define o profissional mais adequado ao seu quadro.",
+    "Não. Você pode falar diretamente com a associação; a avaliação inicial define o profissional mais adequado ao seu quadro, com isso, encaminharemos você a um de nossos profissionais habilitados para o acompanhamento.",
   ],
   [
     "A associação vende medicamentos?",
-    "Não. Orientamos e acompanhamos o paciente; a aquisição do produto prescrito é feita pelas vias legais previstas na regulação.",
+    "Sim, mas apenas para pacientes que já estão em acompanhamento com um profissional habilitado e com prescrição médica válida.",
   ],
   [
     "Quanto tempo leva para começar o tratamento?",

@@ -45,8 +45,7 @@ export function Footer() {
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-[1.6fr_repeat(4,1fr)]">
           <div className="max-w-[320px]">
             <Link to="/" className="flex items-center gap-2.5 font-serif text-[22px] font-medium text-pine">
-              <Logo className="h-[26px] w-[26px]" />
-              Canabidiário
+              <Logo className="h-9" />
             </Link>
             <p className="mt-4 text-sm text-ink-soft">
               Associação dedicada a conectar pacientes a profissionais prescritores de cannabis
