@@ -29,7 +29,7 @@ export const Route = createFileRoute("/patologias/$slug")({
 });
 
 function PatologiaDetalhe() {
-  const { patologia } = Route.useLoaderData();
+  const { patologia } = Route.useLoaderData() as { patologia: Patologia };
   const relacionadas = patologias.filter((p) => p.slug !== patologia.slug).slice(0, 3);
 
   return (
