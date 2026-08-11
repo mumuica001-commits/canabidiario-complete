@@ -1,9 +1,9 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ActionLink, ArrowRight, Eyebrow, WHATSAPP } from "../components/site/ui";
-import { patologias } from "../data/patologias";
+import { patologias, type Patologia } from "../data/patologias";
 
 export const Route = createFileRoute("/patologias/$slug")({
-  loader: ({ params }) => {
+  loader: ({ params }): { patologia: Patologia } => {
     const patologia = patologias.find((p) => p.slug === params.slug);
     if (!patologia) throw notFound();
     return { patologia };

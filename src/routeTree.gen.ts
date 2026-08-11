@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as InstitucionalRouteImport } from './routes/institucional'
 import { Route as PatologiasIndexRouteImport } from './routes/patologias.index'
+import { Route as PatologiasSlugRouteImport } from './routes/patologias.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -28,34 +29,43 @@ const PatologiasIndexRoute = PatologiasIndexRouteImport.update({
   path: '/patologias/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PatologiasSlugRoute = PatologiasSlugRouteImport.update({
+  id: '/patologias/$slug',
+  path: '/patologias/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/institucional': typeof InstitucionalRoute
+  '/patologias/$slug': typeof PatologiasSlugRoute
   '/patologias/': typeof PatologiasIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/institucional': typeof InstitucionalRoute
+  '/patologias/$slug': typeof PatologiasSlugRoute
   '/patologias': typeof PatologiasIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/institucional': typeof InstitucionalRoute
+  '/patologias/$slug': typeof PatologiasSlugRoute
   '/patologias/': typeof PatologiasIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/institucional' | '/patologias/'
+  fullPaths: '/' | '/institucional' | '/patologias/$slug' | '/patologias/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/institucional' | '/patologias'
-  id: '__root__' | '/' | '/institucional' | '/patologias/'
+  to: '/' | '/institucional' | '/patologias/$slug' | '/patologias'
+  id: '__root__' | '/' | '/institucional' | '/patologias/$slug' | '/patologias/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   InstitucionalRoute: typeof InstitucionalRoute
+  PatologiasSlugRoute: typeof PatologiasSlugRoute
   PatologiasIndexRoute: typeof PatologiasIndexRoute
 }
 
@@ -82,12 +92,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PatologiasIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/patologias/$slug': {
+      id: '/patologias/$slug'
+      path: '/patologias/$slug'
+      fullPath: '/patologias/$slug'
+      preLoaderRoute: typeof PatologiasSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   InstitucionalRoute: InstitucionalRoute,
+  PatologiasSlugRoute: PatologiasSlugRoute,
   PatologiasIndexRoute: PatologiasIndexRoute,
 }
 export const routeTree = rootRouteImport
