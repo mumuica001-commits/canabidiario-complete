@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as InstitucionalRouteImport } from './routes/institucional'
+import { Route as NoticiasRouteImport } from './routes/noticias'
 import { Route as ProfissionaisRouteImport } from './routes/profissionais'
 import { Route as PatologiasIndexRouteImport } from './routes/patologias.index'
 import { Route as PatologiasSlugRouteImport } from './routes/patologias.$slug'
@@ -23,6 +24,11 @@ const IndexRoute = IndexRouteImport.update({
 const InstitucionalRoute = InstitucionalRouteImport.update({
   id: '/institucional',
   path: '/institucional',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NoticiasRoute = NoticiasRouteImport.update({
+  id: '/noticias',
+  path: '/noticias',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProfissionaisRoute = ProfissionaisRouteImport.update({
@@ -44,6 +50,7 @@ const PatologiasSlugRoute = PatologiasSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/institucional': typeof InstitucionalRoute
+  '/noticias': typeof NoticiasRoute
   '/profissionais': typeof ProfissionaisRoute
   '/patologias/$slug': typeof PatologiasSlugRoute
   '/patologias/': typeof PatologiasIndexRoute
@@ -51,6 +58,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/institucional': typeof InstitucionalRoute
+  '/noticias': typeof NoticiasRoute
   '/profissionais': typeof ProfissionaisRoute
   '/patologias/$slug': typeof PatologiasSlugRoute
   '/patologias': typeof PatologiasIndexRoute
@@ -59,6 +67,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/institucional': typeof InstitucionalRoute
+  '/noticias': typeof NoticiasRoute
   '/profissionais': typeof ProfissionaisRoute
   '/patologias/$slug': typeof PatologiasSlugRoute
   '/patologias/': typeof PatologiasIndexRoute
@@ -68,6 +77,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/institucional'
+    | '/noticias'
     | '/profissionais'
     | '/patologias/$slug'
     | '/patologias/'
@@ -75,6 +85,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/institucional'
+    | '/noticias'
     | '/profissionais'
     | '/patologias/$slug'
     | '/patologias'
@@ -82,6 +93,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/institucional'
+    | '/noticias'
     | '/profissionais'
     | '/patologias/$slug'
     | '/patologias/'
@@ -90,6 +102,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   InstitucionalRoute: typeof InstitucionalRoute
+  NoticiasRoute: typeof NoticiasRoute
   ProfissionaisRoute: typeof ProfissionaisRoute
   PatologiasSlugRoute: typeof PatologiasSlugRoute
   PatologiasIndexRoute: typeof PatologiasIndexRoute
@@ -109,6 +122,13 @@ declare module '@tanstack/react-router' {
       path: '/institucional'
       fullPath: '/institucional'
       preLoaderRoute: typeof InstitucionalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/noticias': {
+      id: '/noticias'
+      path: '/noticias'
+      fullPath: '/noticias'
+      preLoaderRoute: typeof NoticiasRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/profissionais': {
@@ -138,6 +158,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   InstitucionalRoute: InstitucionalRoute,
+  NoticiasRoute: NoticiasRoute,
   ProfissionaisRoute: ProfissionaisRoute,
   PatologiasSlugRoute: PatologiasSlugRoute,
   PatologiasIndexRoute: PatologiasIndexRoute,

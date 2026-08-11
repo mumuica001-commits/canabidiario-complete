@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ActionLink, ArrowRight, Eyebrow, PageHero, WHATSAPP } from "../components/site/ui";
 import { Reveal } from "../components/site/Reveal";
-import { artigos } from "../data/artigos";
+import { artigos, type Artigo } from "../data/artigos";
 
 export const Route = createFileRoute("/noticias")({
   head: () => ({
@@ -23,7 +23,8 @@ export const Route = createFileRoute("/noticias")({
 });
 
 function Noticias() {
-  const [destaque, ...resto] = artigos;
+  const destaque = artigos[0] as Artigo;
+  const resto = artigos.slice(1);
 
   return (
     <main>
