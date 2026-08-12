@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
 import { ActionLink, ArrowRight, Eyebrow, SectionHead, WHATSAPP } from "../components/site/ui";
 import { Reveal } from "../components/site/Reveal";
 import { patologias } from "../data/patologias";
@@ -11,7 +12,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Associação que conecta pacientes com dor orofacial, condições neurológicas e ansiedade a profissionais habilitados para prescrever cannabis medicinal.",
+          "Plataforma que conecta pacientes com dor orofacial, condições neurológicas e ansiedade a profissionais habilitados para prescrever cannabis medicinal.",
       },
       { property: "og:title", content: "Canabidiário — Cannabis medicinal, guiada por ciência" },
       {
@@ -35,7 +36,7 @@ const steps = [
   {
     num: "01 / Consulta",
     title: "Converse com um especialista",
-    text: "Agende um horário com um profissional associado para avaliar seu quadro e histórico clínico.",
+    text: "Agende um horário com um profissional cadastrado para avaliar seu quadro e histórico clínico.",
   },
   {
     num: "02 / Prescrição",
@@ -45,32 +46,82 @@ const steps = [
   {
     num: "03 / Medicamento",
     title: "Inicie o tratamento",
-    text: "Adquira o produto prescrito com o apoio da associação e acompanhe sua evolução nas consultas seguintes.",
+    text: "Adquira o produto prescrito com apoio e acompanhe sua evolução nas consultas seguintes.",
   },
 ];
 
 function Index() {
+  const [isOpened, setIsOpened] = useState(false);
+  const [isDropping, setIsDropping] = useState(false);
+
+  // Alterna o estado (ativa/desativa o tema) acionando o efeito da gota
+  const toggleThemeEffect = () => {
+    setIsDropping(true);
+
+    if (!isOpened) {
+      setTimeout(() => {
+        setIsOpened(true);
+      }, 1100);
+    } else {
+      setTimeout(() => {
+        setIsOpened(false);
+      }, 900);
+    }
+
+    setTimeout(() => {
+      setIsDropping(false);
+    }, 1800);
+  };
+
   return (
-    <main>
-      {/* HERO */}
-      <section className="overflow-hidden py-20 md:py-24 lg:pb-28">
+    <main
+      className={`relative transition-colors duration-1000 ease-in-out ${
+        isOpened ? "bg-[#fcf8f2] text-[#3a2818]" : ""
+      }`}
+    >
+      {/* LENTE INVISÍVEL SVG DE REFRAÇÃO DA GOTA */}
+      <svg className="hidden">
+        <defs>
+          <filter id="oil-refraction">
+            <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="3" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="18" xChannelSelector="R" yChannelSelector="G" />
+          </filter>
+        </defs>
+      </svg>
+
+      {/* OVERLAY DA GOTA HIPER-REALISTA */}
+      {isDropping && (
+        <div className="pointer-events-none fixed inset-0 z-50 flex items-center justify-center overflow-hidden bg-black/10 backdrop-blur-[1px]">
+          <div className="h-28 w-28 animate-oil-drop shadow-2xl" />
+        </div>
+      )}
+
+      {/* HERO COM FRASCO FLUTUANTE */}
+      <section className="relative overflow-hidden py-16 md:py-20 lg:pb-24">
         <div className="wrap">
-          <div className="grid items-center gap-14 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+            {/* Texto da Hero */}
             <div>
               <Reveal>
-                <Eyebrow>Associação de cannabis medicinal</Eyebrow>
+                <Eyebrow>Canabidiário — Medicina Canabinoide</Eyebrow>
               </Reveal>
               <Reveal delay={80}>
                 <h1 className="my-6 text-[clamp(38px,5.4vw,66px)] leading-[1.05]">
                   O alívio existe.
-                  <br />A ciência <em className="italic text-amber-deep">mostra o caminho.</em>
+                  <br />A ciência{" "}
+                  <em
+                    className={`italic transition-colors duration-700 ${
+                      isOpened ? "text-[#b46219]" : "text-amber-deep"
+                    }`}
+                  >
+                    mostra o caminho.
+                  </em>
                 </h1>
               </Reveal>
               <Reveal delay={140}>
                 <p className="mb-9 max-w-[480px] text-[18px] text-ink-soft">
                   Conectamos pacientes com dor orofacial, condições neurológicas e ansiedade a
-                  profissionais habilitados para prescrever tratamento à base de cannabis — do
-                  diagnóstico à farmácia.
+                  profissionais habilitados para prescrever tratamento à base de cannabis medicinal.
                 </p>
               </Reveal>
               <Reveal delay={200} className="flex flex-wrap items-center gap-5">
@@ -93,33 +144,64 @@ function Index() {
               </Reveal>
             </div>
 
-            <Reveal delay={120} className="relative aspect-square items-center justify-center hidden lg:flex">
-              <svg viewBox="0 0 420 420" fill="none" className="h-full w-full" aria-hidden="true">
-                <circle cx="210" cy="210" r="170" stroke="currentColor" className="text-pine" strokeOpacity="0.14" />
-                <circle cx="210" cy="210" r="120" stroke="currentColor" className="text-pine" strokeOpacity="0.14" />
-                <g stroke="currentColor" className="text-pine" strokeWidth="1.3" fill="none" strokeLinecap="round">
-                  <path d="M210 90C210 90 260 150 260 205C260 245 236 275 210 300C184 275 160 245 160 205C160 150 210 90 210 90Z" />
-                  <path d="M210 205V300" />
-                  <path d="M210 150C210 150 175 135 145 148" />
-                  <path d="M210 150C210 150 245 135 275 148" />
-                  <path d="M210 190C210 190 168 178 138 190" />
-                  <path d="M210 190C210 190 252 178 282 190" />
-                  <path d="M210 240C210 240 178 232 155 240" />
-                  <path d="M210 240C210 240 242 232 265 240" />
-                </g>
-                <g stroke="currentColor" className="text-amber" strokeWidth="1.3" fill="none">
-                  <circle cx="118" cy="300" r="7" />
-                  <circle cx="90" cy="330" r="5.5" />
-                  <circle cx="150" cy="332" r="5.5" />
-                  <line x1="118" y1="300" x2="90" y2="330" />
-                  <line x1="118" y1="300" x2="150" y2="332" />
-                  <circle cx="300" cy="110" r="7" />
-                  <circle cx="330" cy="80" r="5.5" />
-                  <circle cx="330" cy="140" r="5.5" />
-                  <line x1="300" y1="110" x2="330" y2="80" />
-                  <line x1="300" y1="110" x2="330" y2="140" />
-                </g>
-              </svg>
+            {/* Frasco Flutuante e Interativo */}
+            <Reveal delay={120} className="relative flex flex-col items-center justify-center pt-8 lg:pt-0">
+              <div
+                className={`absolute transition-all duration-1000 -z-10 ${
+                  isOpened
+                    ? "h-[500px] w-[500px] bg-amber-500/20 blur-3xl scale-125"
+                    : "h-72 w-72 bg-emerald-500/10 blur-3xl"
+                }`}
+              />
+
+              <button
+                type="button"
+                onClick={toggleThemeEffect}
+                className="group relative flex cursor-pointer flex-col items-center border-none bg-transparent p-0 outline-none focus:outline-none"
+                title={isOpened ? "Clique para desativar o tema" : "Clique no frasco para soltar a gota de óleo"}
+              >
+                <div className="animate-[spin-once_1.2s_cubic-bezier(0.16,1,0.3,1)_forwards]">
+                  <img
+                    src="/frasco.png"
+                    alt="Frasco de Óleo de Canabidiol"
+                    onError={(e) => {
+                      e.currentTarget.onerror = null;
+                      e.currentTarget.src = "https://i.ibb.co/L6v3Zbg/frasco-cbd.png";
+                    }}
+                    className="h-auto w-[260px] sm:w-[320px] lg:w-[380px] drop-shadow-2xl transition-transform duration-500 animate-[float_4s_ease-in-out_infinite] group-hover:scale-105"
+                  />
+                </div>
+
+                {/* BOTÃO BADGE QUADRADO */}
+                <div
+                  className={`mt-5 inline-flex items-center gap-2.5 rounded-none border px-4 py-2 font-mono text-[11.5px] tracking-wide shadow-xs backdrop-blur-md transition-all duration-300 group-hover:scale-105 ${
+                    isOpened
+                      ? "border-amber-600/30 bg-amber-500/20 text-amber-950 shadow-amber-500/10 group-hover:bg-amber-500/30"
+                      : "border-emerald-700/20 bg-emerald-700/10 text-emerald-900 shadow-emerald-700/5 group-hover:bg-emerald-700/20"
+                  }`}
+                >
+                  <span className="relative flex h-2 w-2">
+                    <span
+                      className={`absolute inline-flex h-full w-full animate-ping ${
+                        isOpened ? "bg-amber-600" : "bg-emerald-600"
+                      }`}
+                    />
+                    <span
+                      className={`relative inline-flex h-2 w-2 ${
+                        isOpened ? "bg-amber-600" : "bg-emerald-700"
+                      }`}
+                    />
+                  </span>
+
+                  <span className="font-medium">
+                    {isOpened ? "Tema Âmbar Ativo (Clique para desativar)" : "Clique para dosar a gota"}
+                  </span>
+
+                  <span className="transition-transform duration-300 group-hover:translate-x-0.5">
+                    {isOpened ? "✨" : "💧"}
+                  </span>
+                </div>
+              </button>
             </Reveal>
           </div>
         </div>
@@ -138,25 +220,27 @@ function Index() {
                 acompanhamento contínuo.
               </>
             }
-            description="O processo é conduzido de ponta a ponta por profissionais associados, para que você não precise entender de burocracia — só de tratamento."
+            description="O processo é conduzido de ponta a ponta por profissionais associados, para que você tenha clareza em todas as fases do tratamento."
           />
           <div className="grid border-t border-paper/20 md:grid-cols-3">
             {steps.map((s, i) => (
               <Reveal
                 key={s.num}
                 delay={i * 90}
-                className={`relative py-10 pr-8 ${i < 2 ? "md:border-r md:border-paper/20" : ""}`}
+                className={`relative py-10 px-6 md:px-8 ${
+                  i < 2 ? "md:border-r md:border-paper/20" : ""
+                } ${i === 0 ? "pl-0 md:pl-0" : ""}`}
               >
                 <span className="mb-5 block font-mono text-[13px] text-amber-soft">{s.num}</span>
                 <h3 className="mb-3 font-serif text-[22px] font-normal italic text-paper">{s.title}</h3>
-                <p className="max-w-[280px] text-[14.5px] text-paper/70">{s.text}</p>
+                <p className="max-w-[280px] text-[14.5px] leading-relaxed text-paper/70">{s.text}</p>
               </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* PATOLOGIAS */}
+      {/* PATOLOGIAS — QUADRINHOS 100% RETOS (SEM CANTOS ARREDONDADOS) */}
       <section className="py-24">
         <div className="wrap">
           <SectionHead
@@ -164,27 +248,55 @@ function Index() {
             title="Condições que acompanhamos"
             description="Cada quadro clínico recebe um plano próprio — não existe protocolo único quando o assunto é dor crônica ou saúde neurológica."
           />
-          <div className="grid gap-px border border-border-strong bg-border-strong sm:grid-cols-2 lg:grid-cols-4">
-            {patologias.slice(0, 8).map((p) => (
-              <Link
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {patologias.slice(0, 6).map((p) => (
+              <div
                 key={p.slug}
-                to="/patologias/$slug"
-                params={{ slug: p.slug }}
-                className="group flex min-h-[190px] flex-col gap-4 bg-card px-6 py-8 transition-colors hover:bg-card-soft"
+                className="group flex flex-col justify-between rounded-none border border-border bg-card p-6 shadow-xs transition-all duration-300 hover:-translate-y-1.5 hover:border-amber-500/40 hover:bg-white hover:shadow-md"
               >
-                <span className="font-mono text-[11px] uppercase tracking-[0.1em] text-amber-deep">
-                  {p.grupo}
-                </span>
-                <h3 className="font-sans text-[15px] font-semibold leading-[1.35] text-ink">
-                  {p.nome}
-                </h3>
-                <span className="mt-auto flex translate-y-1 items-center gap-1.5 font-mono text-[11.5px] text-amber-deep opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100">
-                  Saiba mais <ArrowRight className="h-3 w-3" />
-                </span>
-              </Link>
+                <div>
+                  <div className="flex items-center justify-between">
+                    <span className="inline-block bg-amber-500/10 px-2.5 py-1 font-mono text-[10.5px] font-medium uppercase tracking-[0.08em] text-amber-deep">
+                      {p.grupo}
+                    </span>
+                    <span className="font-mono text-xs text-ink-soft">Tratamento Indicado</span>
+                  </div>
+
+                  <h3 className="mt-4 font-sans text-[18px] font-semibold leading-snug text-ink group-hover:text-pine">
+                    {p.nome}
+                  </h3>
+
+                  <p className="mt-2.5 line-clamp-3 text-xs text-ink-soft leading-relaxed">
+                    {p.descricao ||
+                      "Acompanhamento especializado para manejo da dor, modulação sintomática e suporte contínuo com medicina canabinoide."}
+                  </p>
+                </div>
+
+                <div className="mt-6 flex flex-col gap-2.5 border-t border-border/50 pt-4">
+                  <Link
+                    to="/patologias/$slug"
+                    params={{ slug: p.slug }}
+                    className="flex items-center justify-between font-mono text-[11.5px] font-semibold text-pine hover:text-amber-deep transition-colors py-1"
+                  >
+                    <span>Saiba mais sobre a condição</span>
+                    <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                  </Link>
+
+                  <a
+                    href={WHATSAPP}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center justify-center gap-2 rounded-none bg-pine hover:bg-pine-2 text-paper text-xs font-medium py-2.5 px-4 transition-colors shadow-xs"
+                  >
+                    <span>Agendar Consulta</span>
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </a>
+                </div>
+              </div>
             ))}
           </div>
-          <div className="mt-11 text-center">
+
+          <div className="mt-12 text-center">
             <ActionLink to="/patologias" variant="ghost">
               Ver todas as patologias
             </ActionLink>
@@ -192,7 +304,7 @@ function Index() {
         </div>
       </section>
 
-      {/* NOTICIAS */}
+      {/* NOTÍCIAS COM CARDS RETOS */}
       <section className="py-24">
         <div className="wrap">
           <SectionHead
@@ -203,28 +315,39 @@ function Index() {
           <div className="grid gap-7 md:grid-cols-2 lg:grid-cols-3">
             {artigos.slice(0, 3).map((a, i) => (
               <Reveal key={a.titulo} delay={i * 80}>
-                <a
-                  href={a.url}
-                  target="_blank"
-                  rel="noopener"
-                  className="group flex h-full flex-col overflow-hidden rounded-md border border-border bg-card transition-all duration-300 hover:-translate-y-1.5 hover:border-border-strong hover:shadow-elegant"
+                <Link
+                  to="/noticias/$slug"
+                  params={{ slug: a.slug }}
+                  className="group flex h-full flex-col overflow-hidden rounded-none border border-border bg-card transition-all duration-300 hover:-translate-y-1.5 hover:border-amber-500/40 hover:shadow-md"
                 >
-                  <div className="flex h-[170px] items-end bg-gradient-to-br from-pine to-pine-2 p-4">
-                    <span className="rounded-[2px] bg-paper/90 px-2.5 py-1 font-mono text-[10.5px] uppercase tracking-[0.06em] text-pine">
+                  <div className="relative h-[200px] w-full overflow-hidden bg-slate-100">
+                    <img
+                      src={a.imagem || "https://images.unsplash.com/photo-1611070342080-6927d6d8db23?auto=format&fit=crop&w=800&q=80"}
+                      alt={a.titulo}
+                      onError={(e) => {
+                        e.currentTarget.onerror = null;
+                        e.currentTarget.src = "https://images.unsplash.com/photo-1611070342080-6927d6d8db23?auto=format&fit=crop&w=800&q=80";
+                      }}
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <span className="absolute bottom-3 left-3 rounded-none bg-paper/95 px-2.5 py-1 font-mono text-[10.5px] uppercase tracking-[0.06em] text-pine shadow-xs">
                       {a.tag}
                     </span>
                   </div>
+
                   <div className="flex flex-1 flex-col gap-3 px-6 pb-7 pt-5">
-                    <span className="font-mono text-[11px] tracking-[0.04em] text-amber-deep">
+                    <span className="font-mono text-[11px] font-semibold text-amber-deep">
                       {a.categoria}
                     </span>
-                    <h3 className="font-serif text-[19px] leading-[1.28] text-ink">{a.titulo}</h3>
+                    <h3 className="font-serif text-[19px] leading-[1.28] text-ink group-hover:text-pine transition-colors">
+                      {a.titulo}
+                    </h3>
                     <span className="mt-auto flex items-center gap-1.5 text-[13px] font-semibold text-pine">
                       Ler matéria{" "}
                       <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
                     </span>
                   </div>
-                </a>
+                </Link>
               </Reveal>
             ))}
           </div>
@@ -249,7 +372,7 @@ function Index() {
             Seu tratamento começa com uma conversa.
           </h2>
           <p className="mx-auto mb-9 max-w-[480px] text-paper/75">
-            Fale com a associação pelo WhatsApp e entenda os próximos passos para iniciar o
+            Fale conosco pelo WhatsApp e entenda os próximos passos para iniciar o
             acompanhamento — sem compromisso.
           </p>
           <ActionLink href={WHATSAPP} variant="amber">
@@ -260,8 +383,6 @@ function Index() {
     </main>
   );
 }
-
-import { useState } from "react";
 
 function Newsletter() {
   const [email, setEmail] = useState("");
@@ -277,8 +398,8 @@ function Newsletter() {
               Receba conteúdo sobre cannabis medicinal direto no seu e-mail.
             </h2>
             <p className="max-w-[420px] text-ink-soft">
-              Um envio ocasional com novidades sobre tratamentos, patologias e mudanças na
-              legislação. Sem spam.
+              Um envio ocasional com novidades sobre tratamentos, patologias e atualizações
+              científicas. Sem spam.
             </p>
           </div>
           <form
@@ -308,7 +429,7 @@ function Newsletter() {
               </button>
             </div>
             <p className="mt-3 font-mono text-[11.5px] text-ink-soft">
-              Ao se cadastrar, você concorda em receber e-mails da associação.
+              Ao se cadastrar, você concorda em receber e-mails informativos.
             </p>
           </form>
         </div>
