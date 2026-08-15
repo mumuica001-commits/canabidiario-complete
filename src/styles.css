@@ -527,3 +527,16 @@ body {
   color: #1f2937;
   background-color: #fcfbf9;
 }
+
+@keyframes floatBottle {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-12px) rotate(1deg);
+  }
+}
+
+.animate-float-bottle {
+  animation: floatBottle 5s ease-in-out infinite;
+}
