@@ -57,7 +57,7 @@ function Contato() {
         eyebrow="Contato"
         title={
           <>
-            Seu tratamento começa com <em className="italic text-amber-deep">uma conversa.</em>
+            Seu tratamento começa com <em className="not-italic bg-gradient-to-r from-amber-deep to-lime-deep bg-clip-text text-transparent">uma conversa.</em>
           </>
         }
         lede="Fale com a associação para entender os próximos passos, tirar dúvidas sobre o processo ou propor uma colaboração."
@@ -131,7 +131,7 @@ function Contato() {
               </label>
               <button
                 type="submit"
-                className="inline-flex w-fit items-center gap-2 rounded-[3px] bg-pine px-[22px] py-[11px] text-sm font-semibold text-paper transition-all hover:-translate-y-0.5 hover:bg-pine-2"
+                className="inline-flex w-fit items-center gap-2 rounded-full bg-pine px-[22px] py-[11px] text-sm font-semibold text-paper transition-all hover:-translate-y-0.5 hover:bg-pine-2"
               >
                 {enviado ? "Mensagem registrada ✓" : "Enviar mensagem"}
                 <ArrowRight />

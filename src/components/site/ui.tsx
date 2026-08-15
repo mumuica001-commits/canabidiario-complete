@@ -14,12 +14,14 @@ export function Eyebrow({
 }) {
   return (
     <span
-      className={`flex items-center gap-2.5 font-mono text-[12px] uppercase tracking-[0.14em] ${
-        tone === "amber" ? "text-amber-deep" : "text-amber-soft"
+      className={`inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 font-mono text-[11.5px] uppercase tracking-[0.12em] ${
+        tone === "amber"
+          ? "border-amber-deep/25 bg-amber-soft/40 text-amber-deep"
+          : "border-paper/25 bg-paper/10 text-amber-soft"
       } ${center ? "justify-center" : ""}`}
     >
       <span
-        className={`inline-block h-px w-[22px] ${
+        className={`inline-block h-[7px] w-[7px] rounded-full ${
           tone === "amber" ? "bg-amber-deep" : "bg-amber-soft"
         }`}
       />
@@ -44,7 +46,7 @@ export function SectionHead({
       <div>
         <Eyebrow tone={tone === "dark" ? "soft" : "amber"}>{eyebrow}</Eyebrow>
         <h2
-          className={`mt-3.5 text-[clamp(28px,3.4vw,42px)] leading-[1.1] ${
+          className={`mt-4 text-[clamp(28px,3.4vw,44px)] leading-[1.05] ${
             tone === "dark" ? "text-paper" : ""
           }`}
         >
@@ -65,13 +67,16 @@ export function SectionHead({
 }
 
 const base =
-  "inline-flex items-center gap-2 whitespace-nowrap rounded-[3px] border border-transparent px-[22px] py-[11px] text-sm font-semibold transition-[transform,background-color,border-color,color] duration-250";
+  "relative inline-flex items-center gap-2 whitespace-nowrap rounded-full border border-transparent px-6 py-3 text-sm font-semibold tracking-[-0.01em] transition-[transform,background-color,border-color,color,box-shadow] duration-300 ease-out";
 
 const variants = {
-  primary: "bg-pine text-paper hover:bg-pine-2 hover:-translate-y-0.5",
-  amber: "bg-amber-deep text-accent-foreground hover:bg-amber hover:-translate-y-0.5",
-  ghost: "border-border-strong text-ink hover:border-pine hover:bg-pine/5",
-  ghostDark: "border-paper/30 text-paper hover:border-paper hover:bg-paper/10",
+  primary:
+    "bg-pine text-paper shadow-[0_10px_30px_-12px_oklch(0.298_0.07_155_/_0.6)] hover:bg-pine-2 hover:-translate-y-0.5 hover:shadow-[0_14px_36px_-12px_oklch(0.298_0.07_155_/_0.7)]",
+  amber:
+    "bg-gradient-to-br from-amber to-amber-deep text-accent-foreground shadow-[var(--shadow-glow-amber)] hover:-translate-y-0.5 hover:shadow-[0_16px_40px_-10px_oklch(0.6_0.16_53_/_0.6)]",
+  ghost:
+    "border-border-strong text-ink hover:border-pine hover:bg-pine/5 hover:-translate-y-0.5",
+  ghostDark: "border-paper/30 text-paper hover:border-paper hover:bg-paper/10 hover:-translate-y-0.5",
 } as const;
 
 type Variant = keyof typeof variants;
@@ -124,10 +129,14 @@ export function PageHero({
   children?: ReactNode;
 }) {
   return (
-    <section className="border-b border-border bg-paper-deep py-20 md:py-24">
-      <div className="wrap">
+    <section className="grain relative overflow-hidden border-b border-border bg-paper-deep py-20 md:py-28">
+      <div className="mesh-ambient">
+        <span className="b1" />
+        <span className="b2" />
+      </div>
+      <div className="wrap relative z-[2]">
         <Eyebrow>{eyebrow}</Eyebrow>
-        <h1 className="mt-5 max-w-[860px] text-[clamp(32px,4.6vw,56px)] leading-[1.06]">{title}</h1>
+        <h1 className="mt-6 max-w-[860px] text-[clamp(34px,5vw,60px)] leading-[1.02]">{title}</h1>
         {lede ? <p className="mt-6 max-w-[560px] text-[17px] text-ink-soft">{lede}</p> : null}
         {children ? <div className="mt-9 flex flex-wrap items-center gap-4">{children}</div> : null}
       </div>

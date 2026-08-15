@@ -2,16 +2,17 @@
 @import "tw-animate-css";
 
 /*
- * Canabidiário design system — editorial botanical.
- * Paper / pine / amber palette, Fraunces + Inter + IBM Plex Mono.
+ * Canabidiário design system v2 — "clinical botanical, modern".
+ * Porcelain / deep-pine / amber+lime signal palette.
+ * Space Grotesk (display) + Hanken Grotesk (body) + IBM Plex Mono (data/labels).
  * All colors in oklch. Never hardcode colors in components.
  */
 
 :root {
-  --radius-sm: calc(var(--radius) - 3px);
-  --radius-md: calc(var(--radius) - 1px);
+  --radius-sm: calc(var(--radius) - 10px);
+  --radius-md: calc(var(--radius) - 4px);
   --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 6px);
+  --radius-xl: calc(var(--radius) + 10px);
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -44,16 +45,22 @@
   --color-amber-deep: var(--amber-deep);
   --color-amber-soft: var(--amber-soft);
   --color-card-soft: var(--card-soft);
+  --color-lime: var(--lime);
+  --color-lime-deep: var(--lime-deep);
 
-  --font-serif: "Fraunces", Georgia, serif;
-  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: "Space Grotesk", "Hanken Grotesk", -apple-system, sans-serif;
+  --font-sans: "Hanken Grotesk", -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, monospace;
 
-  --shadow-elegant: 0 20px 50px -25px oklch(0.3 0.03 150 / 0.45);
+  --shadow-elegant: 0 30px 70px -30px oklch(0.2 0.05 155 / 0.35);
+  --shadow-glow-amber: 0 8px 30px -8px oklch(0.6 0.16 55 / 0.45);
+  --shadow-glow-lime: 0 8px 30px -8px oklch(0.55 0.13 145 / 0.35);
 
   /* Registro de animações no Tailwind v4 */
   --animate-spin-once: spin-once 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   --animate-float: float 4s ease-in-out infinite;
+  --animate-drift: drift 14s ease-in-out infinite;
+  --animate-drift-slow: drift 22s ease-in-out infinite reverse;
 }
 
 /* Keyframes nativos do CSS para a rotação e flutuação */
@@ -77,23 +84,41 @@
   }
 }
 
-:root {
-  --radius: 6px;
+/* Deriva lenta e orgânica para os blobs do gradient-mesh ambiente */
+@keyframes drift {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(4%, -6%) scale(1.08);
+  }
+  66% {
+    transform: translate(-5%, 4%) scale(0.95);
+  }
+}
 
-  --paper: oklch(0.951 0.012 116.8);
-  --paper-deep: oklch(0.922 0.016 118.1);
-  --ink: oklch(0.249 0.017 155.8);
-  --ink-soft: oklch(0.395 0.022 152.9);
-  --pine: oklch(0.325 0.044 159.3);
-  --pine-2: oklch(0.404 0.054 162.2);
-  --amber: oklch(0.655 0.11 74.6);
-  --amber-deep: oklch(0.539 0.093 73);
-  --amber-soft: oklch(0.854 0.072 81.8);
-  --card-soft: oklch(0.984 0.009 100);
+:root {
+  --radius: 22px;
+
+  /* Porcelana clara com leve viés esverdeado — mais fria e limpa que o
+     "cream" clássico, evitando o clichê editorial-quente padrão de IA. */
+  --paper: oklch(0.984 0.006 135);
+  --paper-deep: oklch(0.958 0.01 132);
+  --ink: oklch(0.17 0.022 155);
+  --ink-soft: oklch(0.42 0.02 155);
+  --pine: oklch(0.298 0.07 155);
+  --pine-2: oklch(0.375 0.082 158);
+  --amber: oklch(0.745 0.15 65);
+  --amber-deep: oklch(0.6 0.16 53);
+  --amber-soft: oklch(0.907 0.058 82);
+  --card-soft: oklch(0.99 0.004 100);
+  /* Verde-lima ácido — segundo acento moderno, referência direta à folha */
+  --lime: oklch(0.815 0.16 142);
+  --lime-deep: oklch(0.56 0.135 148);
 
   --background: var(--paper);
   --foreground: var(--ink);
-  --card: oklch(0.972 0.009 100);
+  --card: oklch(0.995 0.004 100);
   --card-foreground: var(--ink);
   --primary: var(--pine);
   --primary-foreground: var(--paper);
@@ -102,11 +127,11 @@
   --muted: var(--paper-deep);
   --muted-foreground: var(--ink-soft);
   --accent: var(--amber-deep);
-  --accent-foreground: oklch(0.974 0.017 88);
+  --accent-foreground: oklch(0.99 0.01 88);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.249 0.017 155.8 / 0.14);
-  --border-strong: oklch(0.249 0.017 155.8 / 0.24);
+  --border: oklch(0.17 0.022 155 / 0.1);
+  --border-strong: oklch(0.17 0.022 155 / 0.2);
 }
 
 @layer base {
@@ -130,13 +155,13 @@
   h2,
   h3 {
     font-family: var(--font-serif);
-    font-weight: 500;
+    font-weight: 600;
     color: var(--color-pine);
-    letter-spacing: -0.01em;
+    letter-spacing: -0.035em;
   }
 
   ::selection {
-    background: var(--color-pine);
+    background: var(--color-amber-deep);
     color: var(--color-paper);
   }
 
@@ -181,6 +206,85 @@
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* ================================================================
+   CAMADA "MODERN SIGNAL" — texturas e superfícies compartilhadas:
+   grão sutil, vidro (glass), e o gradient-mesh ambiente âmbar/lima
+   usado atrás dos heros e seções de destaque.
+   ================================================================ */
+
+.grain {
+  position: relative;
+  isolation: isolate;
+}
+
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.045;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.glass {
+  background: color-mix(in oklch, var(--color-card) 72%, transparent);
+  backdrop-filter: blur(18px) saturate(1.4);
+  -webkit-backdrop-filter: blur(18px) saturate(1.4);
+  border: 1px solid color-mix(in oklch, var(--color-paper) 40%, transparent);
+}
+
+.mesh-ambient {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.mesh-ambient span {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(70px);
+  opacity: 0.55;
+}
+
+.mesh-ambient .b1 {
+  top: -12%;
+  right: 4%;
+  width: 42vw;
+  height: 42vw;
+  max-width: 560px;
+  max-height: 560px;
+  background: radial-gradient(circle, var(--color-amber) 0%, transparent 72%);
+  animation: var(--animate-drift);
+}
+
+.mesh-ambient .b2 {
+  bottom: -18%;
+  left: -6%;
+  width: 36vw;
+  height: 36vw;
+  max-width: 480px;
+  max-height: 480px;
+  background: radial-gradient(circle, var(--color-lime) 0%, transparent 72%);
+  animation: var(--animate-drift-slow);
+}
+
+.mesh-ambient .b3 {
+  top: 30%;
+  left: 38%;
+  width: 26vw;
+  height: 26vw;
+  max-width: 360px;
+  max-height: 360px;
+  background: radial-gradient(circle, var(--color-pine-2) 0%, transparent 74%);
+  opacity: 0.25;
+  animation: var(--animate-drift);
+  animation-duration: 18s;
 }
 
 /* ================================================================

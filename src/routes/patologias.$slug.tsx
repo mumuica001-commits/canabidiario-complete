@@ -61,7 +61,7 @@ function PatologiaDetalhe() {
             <h2 className="text-[clamp(24px,2.8vw,32px)]">Entendendo o quadro</h2>
             <p className="mt-5 text-[16px] leading-[1.75] text-ink-soft">{patologia.texto}</p>
 
-            <h3 className="mt-12 font-serif text-[22px] italic">Como conduzimos o cuidado</h3>
+            <h3 className="mt-12 text-[22px] font-semibold">Como conduzimos o cuidado</h3>
             <ul className="mt-5 flex flex-col gap-4">
               {patologia.abordagem.map((a, i) => (
                 <li key={a} className="flex gap-4 border-t border-border pt-4">

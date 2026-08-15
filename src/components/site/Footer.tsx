@@ -40,14 +40,14 @@ const cols = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-border bg-paper-deep py-16">
-      <div className="wrap">
+    <footer className="grain relative overflow-hidden border-t border-border bg-pine py-16 text-paper">
+      <div className="wrap relative z-[2]">
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-[1.6fr_repeat(4,1fr)]">
           <div className="max-w-[320px]">
-            <Link to="/" className="flex items-center gap-2.5 font-serif text-[22px] font-medium text-pine">
-              <Logo className="h-9" />
+            <Link to="/" className="inline-flex items-center gap-2.5 rounded-2xl bg-paper/95 px-4 py-2.5 text-[22px] font-semibold text-pine shadow-lg">
+              <Logo className="h-8" />
             </Link>
-            <p className="mt-4 text-sm text-ink-soft">
+            <p className="mt-4 text-sm text-paper/65">
               Associação dedicada a conectar pacientes a profissionais prescritores de cannabis
               medicinal, com acompanhamento humano do início ao fim.
             </p>
@@ -57,7 +57,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener"
                 aria-label="WhatsApp"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-border-strong text-pine transition-colors hover:bg-pine hover:text-paper"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-paper/20 text-paper transition-colors hover:border-amber-soft hover:bg-amber-soft hover:text-pine"
               >
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-4 w-4">
                   <path d="M12 2C6.5 2 2 6.5 2 12C2 13.9 2.5 15.7 3.5 17.2L2 22L7 20.6C8.4 21.5 10.1 22 12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2Z" />
@@ -68,7 +68,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener"
                 aria-label="Instagram"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-border-strong text-pine transition-colors hover:bg-pine hover:text-paper"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-paper/20 text-paper transition-colors hover:border-amber-soft hover:bg-amber-soft hover:text-pine"
               >
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-4 w-4">
                   <rect x="3" y="3" width="18" height="18" rx="5" />
@@ -81,13 +81,13 @@ export function Footer() {
 
           {cols.map((col) => (
             <div key={col.title}>
-              <h4 className="font-mono text-[11.5px] uppercase tracking-[0.1em] text-amber-deep">
+              <h4 className="font-mono text-[11.5px] uppercase tracking-[0.1em] text-amber-soft">
                 {col.title}
               </h4>
               <ul className="mt-4 flex flex-col gap-2.5">
                 {col.items.map((item) => (
                   <li key={item.label}>
-                    <Link to={item.to} className="text-sm text-ink-soft transition-colors hover:text-pine">
+                    <Link to={item.to} className="text-sm text-paper/65 transition-colors hover:text-paper">
                       {item.label}
                     </Link>
                   </li>
@@ -97,7 +97,7 @@ export function Footer() {
           ))}
         </div>
 
-        <div className="mt-14 flex flex-col gap-2 border-t border-border pt-6 font-mono text-[11.5px] text-ink-soft md:flex-row md:justify-between">
+        <div className="mt-14 flex flex-col gap-2 border-t border-paper/12 pt-6 font-mono text-[11.5px] text-paper/55 md:flex-row md:justify-between">
           <p>© 2026 Canabidiário — Todos os direitos reservados.</p>
           <p>Conteúdo informativo. Não substitui consulta médica.</p>
         </div>

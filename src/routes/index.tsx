@@ -8,13 +8,13 @@ import { artigos } from "../data/artigos";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Canabidiário — Cannabis medicinal, guiada por ciência" },
+      { title: "Canabidiário | Cannabis Medicinal" },
       {
         name: "description",
         content:
           "Plataforma que conecta pacientes com dor orofacial, condições neurológicas e ansiedade a profissionais habilitados para prescrever cannabis medicinal.",
       },
-      { property: "og:title", content: "Canabidiário — Cannabis medicinal, guiada por ciência" },
+      { property: "og:title", content: "Canabidiário | Cannabis Medicinal" },
       {
         property: "og:description",
         content:
@@ -90,7 +90,7 @@ function Index() {
   return (
     <main
       className={`relative transition-colors duration-1000 ease-in-out ${
-        isOpened ? "bg-[#fcf8f2] text-[#3a2818]" : ""
+        isOpened ? "bg-amber-soft/25" : ""
       }`}
     >
       {/* LENTE INVISÍVEL SVG DE REFRAÇÃO DA GOTA */}
@@ -128,25 +128,25 @@ function Index() {
       )}
 
       {/* HERO COM FRASCO FLUTUANTE */}
-      <section className="relative overflow-hidden py-16 md:py-20 lg:pb-24">
-        <div className="wrap">
+      <section className="grain relative overflow-hidden py-16 md:py-20 lg:pb-24">
+        <div className="mesh-ambient">
+          <span className="b1" />
+          <span className="b3" />
+        </div>
+        <div className="wrap relative z-[2]">
           <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
             {/* Texto da Hero */}
             <div>
               <Reveal>
-                <Eyebrow>Canabidiário — Medicina Canabinoide</Eyebrow>
+                <Eyebrow>Associação Prudentina de Cannabis Medicinal</Eyebrow>
               </Reveal>
               <Reveal delay={80}>
-                <h1 className="my-6 text-[clamp(38px,5.4vw,66px)] leading-[1.05]">
+                <h1 className="my-6 text-[clamp(38px,5.4vw,68px)] leading-[0.98]">
                   O alívio existe.
                   <br />A ciência{" "}
-                  <em
-                    className={`italic transition-colors duration-700 ${
-                      isOpened ? "text-[#b46219]" : "text-amber-deep"
-                    }`}
-                  >
+                  <span className="bg-gradient-to-r from-amber-deep via-amber to-lime-deep bg-clip-text text-transparent">
                     mostra o caminho.
-                  </em>
+                  </span>
                 </h1>
               </Reveal>
               <Reveal delay={140}>
@@ -166,8 +166,8 @@ function Index() {
               <Reveal delay={260} className="mt-16 grid grid-cols-2 gap-y-6 border-t border-border pt-7 lg:grid-cols-4">
                 {stats.map((s) => (
                   <div key={s.num} className="pr-5">
-                    <span className="block font-serif text-[15px] italic text-pine">{s.num}</span>
-                    <span className="mt-1 block font-mono text-[12px] leading-[1.5] tracking-[0.04em] text-ink-soft">
+                    <span className="block text-[15px] font-semibold text-pine">{s.num}</span>
+                    <span className="mt-1 block font-mono text-[11.5px] leading-[1.5] tracking-[0.03em] text-ink-soft">
                       {s.label}
                     </span>
                   </div>
@@ -178,10 +178,10 @@ function Index() {
             {/* Frasco Flutuante */}
             <Reveal delay={120} className="relative flex flex-col items-center justify-center pt-8 lg:pt-0">
               <div
-                className={`absolute transition-all duration-1000 -z-10 ${
+                className={`absolute rounded-full transition-all duration-1000 -z-10 ${
                   isOpened
-                    ? "h-[500px] w-[500px] bg-amber-500/20 blur-3xl scale-125"
-                    : "h-72 w-72 bg-emerald-500/10 blur-3xl"
+                    ? "h-[520px] w-[520px] scale-125 bg-amber/25 blur-[90px]"
+                    : "h-80 w-80 bg-lime/20 blur-[80px]"
                 }`}
               />
 
@@ -203,8 +203,11 @@ function Index() {
       </section>
 
       {/* COMO FUNCIONA */}
-      <section className="bg-pine py-24 text-paper">
-        <div className="wrap">
+      <section className="grain relative overflow-hidden bg-pine py-24 text-paper">
+        <div className="mesh-ambient">
+          <span className="b1" style={{ opacity: 0.18 }} />
+        </div>
+        <div className="wrap relative z-[2]">
           <SectionHead
             tone="dark"
             eyebrow="Como funciona"
@@ -217,25 +220,21 @@ function Index() {
             }
             description="O processo é conduzido de ponta a ponta por profissionais associados, para que você tenha clareza em todas as fases do tratamento."
           />
-          <div className="grid border-t border-paper/20 md:grid-cols-3">
+          <div className="grid gap-6 md:grid-cols-3">
             {steps.map((s, i) => (
-              <Reveal
-                key={s.num}
-                delay={i * 90}
-                className={`relative py-10 px-6 md:px-8 ${
-                  i < 2 ? "md:border-r md:border-paper/20" : ""
-                } ${i === 0 ? "pl-0 md:pl-0" : ""}`}
-              >
-                <span className="mb-5 block font-mono text-[13px] text-amber-soft">{s.num}</span>
-                <h3 className="mb-3 font-serif text-[22px] font-normal italic text-paper">{s.title}</h3>
-                <p className="max-w-[280px] text-[14.5px] leading-relaxed text-paper/70">{s.text}</p>
+              <Reveal key={s.num} delay={i * 90}>
+                <div className="glass h-full rounded-2xl px-7 py-8">
+                  <span className="mb-5 block font-mono text-[13px] text-amber-soft">{s.num}</span>
+                  <h3 className="mb-3 text-[22px] font-semibold text-paper">{s.title}</h3>
+                  <p className="max-w-[280px] text-[14.5px] leading-relaxed text-paper/70">{s.text}</p>
+                </div>
               </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* PATOLOGIAS — QUADRINHOS 100% RETOS (SEM CANTOS ARREDONDADOS) */}
+      {/* PATOLOGIAS */}
       <section className="py-24">
         <div className="wrap">
           <SectionHead
@@ -247,17 +246,17 @@ function Index() {
             {patologias.slice(0, 6).map((p) => (
               <div
                 key={p.slug}
-                className="group flex flex-col justify-between rounded-none border border-border bg-card p-6 shadow-xs transition-all duration-300 hover:-translate-y-1.5 hover:border-amber-500/40 hover:bg-white hover:shadow-md"
+                className="group flex flex-col justify-between rounded-2xl border border-border bg-card p-6 shadow-xs transition-all duration-300 hover:-translate-y-1.5 hover:border-amber-deep/40 hover:shadow-[var(--shadow-elegant)]"
               >
                 <div>
                   <div className="flex items-center justify-between">
-                    <span className="inline-block bg-amber-500/10 px-2.5 py-1 font-mono text-[10.5px] font-medium uppercase tracking-[0.08em] text-amber-deep">
+                    <span className="inline-block rounded-full bg-amber-soft/50 px-3 py-1 font-mono text-[10.5px] font-medium uppercase tracking-[0.08em] text-amber-deep">
                       {p.grupo}
                     </span>
                     <span className="font-mono text-xs text-ink-soft">Tratamento Indicado</span>
                   </div>
 
-                  <h3 className="mt-4 font-sans text-[18px] font-semibold leading-snug text-ink group-hover:text-pine">
+                  <h3 className="mt-4 text-[18px] font-semibold leading-snug text-ink group-hover:text-pine">
                     {p.nome}
                   </h3>
 
@@ -281,7 +280,7 @@ function Index() {
                     href={WHATSAPP}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center justify-center gap-2 rounded-none bg-pine hover:bg-pine-2 text-paper text-xs font-medium py-2.5 px-4 transition-colors shadow-xs"
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-pine hover:bg-pine-2 text-paper text-xs font-medium py-2.5 px-4 transition-colors shadow-xs"
                   >
                     <span>Agendar Consulta</span>
                     <ArrowRight className="h-3.5 w-3.5" />
@@ -299,7 +298,7 @@ function Index() {
         </div>
       </section>
 
-      {/* NOTÍCIAS COM CARDS RETOS */}
+      {/* NOTÍCIAS */}
       <section className="py-24">
         <div className="wrap">
           <SectionHead
@@ -313,7 +312,7 @@ function Index() {
                 <Link
                   to="/noticias/$slug"
                   params={{ slug: a.slug }}
-                  className="group flex h-full flex-col overflow-hidden rounded-none border border-border bg-card transition-all duration-300 hover:-translate-y-1.5 hover:border-amber-500/40 hover:shadow-md"
+                  className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 hover:-translate-y-1.5 hover:border-amber-deep/40 hover:shadow-[var(--shadow-elegant)]"
                 >
                   <div className="relative h-[200px] w-full overflow-hidden bg-slate-100">
                     <img
@@ -325,7 +324,7 @@ function Index() {
                       }}
                       className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
-                    <span className="absolute bottom-3 left-3 rounded-none bg-paper/95 px-2.5 py-1 font-mono text-[10.5px] uppercase tracking-[0.06em] text-pine shadow-xs">
+                    <span className="absolute bottom-3 left-3 rounded-full bg-paper/95 px-3 py-1 font-mono text-[10.5px] uppercase tracking-[0.06em] text-pine shadow-xs">
                       {a.tag}
                     </span>
                   </div>
@@ -334,7 +333,7 @@ function Index() {
                     <span className="font-mono text-[11px] font-semibold text-amber-deep">
                       {a.categoria}
                     </span>
-                    <h3 className="font-serif text-[19px] leading-[1.28] text-ink group-hover:text-pine transition-colors">
+                    <h3 className="text-[19px] font-semibold leading-[1.28] text-ink group-hover:text-pine transition-colors">
                       {a.titulo}
                     </h3>
                     <span className="mt-auto flex items-center gap-1.5 text-[13px] font-semibold text-pine">
@@ -358,12 +357,16 @@ function Index() {
       <Newsletter />
 
       {/* CTA */}
-      <section className="bg-pine py-24 text-center text-paper">
-        <div className="wrap">
+      <section className="grain relative overflow-hidden bg-pine py-24 text-center text-paper">
+        <div className="mesh-ambient">
+          <span className="b1" style={{ opacity: 0.2 }} />
+          <span className="b2" style={{ opacity: 0.16 }} />
+        </div>
+        <div className="wrap relative z-[2]">
           <Eyebrow tone="soft" center>
             Comece hoje
           </Eyebrow>
-          <h2 className="mx-auto mb-6 mt-5 max-w-[720px] text-[clamp(30px,4.2vw,50px)] leading-[1.15] text-paper">
+          <h2 className="mx-auto mb-6 mt-5 max-w-[720px] text-[clamp(30px,4.2vw,50px)] leading-[1.1] text-paper">
             Seu tratamento começa com uma conversa.
           </h2>
           <p className="mx-auto mb-9 max-w-[480px] text-paper/75">
@@ -405,7 +408,7 @@ function Newsletter() {
               setTimeout(() => setDone(false), 2400);
             }}
           >
-            <div className="flex border-b-[1.5px] border-ink pb-0.5">
+            <div className="glass flex items-center rounded-full py-1 pl-6 pr-1.5 shadow-xs transition-shadow focus-within:shadow-[var(--shadow-glow-amber)]">
               <input
                 type="email"
                 required
@@ -413,17 +416,17 @@ function Newsletter() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="seu@email.com"
                 aria-label="Seu e-mail"
-                className="flex-1 bg-transparent px-1 py-3 text-base text-ink outline-none placeholder:text-ink-soft"
+                className="flex-1 bg-transparent py-3 text-base text-ink outline-none placeholder:text-ink-soft"
               />
               <button
                 type="submit"
-                className="flex items-center gap-2 px-1.5 font-mono text-[13px] font-medium text-pine"
+                className="flex items-center gap-2 rounded-full bg-pine px-5 py-2.5 font-mono text-[13px] font-medium text-paper transition-colors hover:bg-pine-2"
               >
                 {done ? "Cadastrado ✓" : "Cadastrar"}
                 <ArrowRight className="h-4 w-4" />
               </button>
             </div>
-            <p className="mt-3 font-mono text-[11.5px] text-ink-soft">
+            <p className="mt-3 pl-2 font-mono text-[11.5px] text-ink-soft">
               Ao se cadastrar, você concorda em receber e-mails informativos.
             </p>
           </form>

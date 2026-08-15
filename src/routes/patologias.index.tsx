@@ -29,7 +29,7 @@ function PatologiasIndex() {
         eyebrow="Patologias"
         title={
           <>
-            Condições que <em className="italic text-amber-deep">acompanhamos</em>
+            Condições que <em className="not-italic bg-gradient-to-r from-amber-deep to-lime-deep bg-clip-text text-transparent">acompanhamos</em>
           </>
         }
         lede="Cada quadro clínico recebe um plano próprio — não existe protocolo único quando o assunto é dor crônica, saúde neurológica ou ansiedade."
