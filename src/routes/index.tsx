@@ -30,7 +30,6 @@ function IndexPage() {
         <div className="wrap grid items-center gap-12 lg:grid-cols-12">
           
           <div className="space-y-6 lg:col-span-7">
-            {/* Texto simples sem badge ou fundo em volta */}
             <p className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-amber-deep">
               Associação Prudentina de Cannabis Medicinal
             </p>
@@ -77,9 +76,9 @@ function IndexPage() {
             </div>
           </div>
 
-          {/* Imagem do Frasco */}
+          {/* Container do Frasco Flutuante */}
           <div className="relative lg:col-span-5 flex justify-center">
-            <div className="relative w-full max-w-[360px] sm:max-w-[420px]">
+            <div className="relative w-full max-w-[360px] sm:max-w-[420px] animate-float-bottle">
               <div className="absolute -inset-4 rounded-3xl bg-amber-500/10 blur-2xl -z-10" />
               <img
                 src="/frasco.png"
@@ -162,49 +161,55 @@ function IndexPage() {
           </div>
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {patologiasDestaque.map((pat, i) => (
-              <Reveal key={pat.slug} delay={i * 50}>
-                <div className="group flex h-full flex-col justify-between rounded-2xl border border-border bg-card p-6 sm:p-8 transition-all duration-300 hover:-translate-y-1.5 hover:border-amber-500/40 hover:shadow-xl shadow-xs">
-                  <div className="space-y-3.5">
-                    <div className="flex items-center justify-between">
-                      <span className="rounded-full bg-amber-500/10 px-3 py-1 font-mono text-[10.5px] font-semibold uppercase tracking-wider text-amber-deep">
-                        {pat.grupo || "Tratamento"}
-                      </span>
-                      <span className="rounded-full bg-emerald-500/10 px-2.5 py-1 font-mono text-[10px] font-semibold uppercase tracking-wider text-pine">
-                        Indicado
-                      </span>
+            {patologiasDestaque.map((pat, i) => {
+              const titulo = "nome" in pat ? (pat as { nome: string }).nome : (pat as { titulo: string }).titulo;
+              const categoria = "grupo" in pat ? (pat as { grupo: string }).grupo : (pat as { categoria: string }).categoria;
+              const resumo = "resumo" in pat ? (pat as { resumo: string }).resumo : (pat as { descricao: string }).descricao;
+
+              return (
+                <Reveal key={pat.slug} delay={i * 50}>
+                  <div className="group flex h-full flex-col justify-between rounded-2xl border border-border bg-card p-6 sm:p-8 transition-all duration-300 hover:-translate-y-1.5 hover:border-amber-500/40 hover:shadow-xl shadow-xs">
+                    <div className="space-y-3.5">
+                      <div className="flex items-center justify-between">
+                        <span className="rounded-full bg-amber-500/10 px-3 py-1 font-mono text-[10.5px] font-semibold uppercase tracking-wider text-amber-deep">
+                          {categoria || "Tratamento"}
+                        </span>
+                        <span className="rounded-full bg-emerald-500/10 px-2.5 py-1 font-mono text-[10px] font-semibold uppercase tracking-wider text-pine">
+                          Indicado
+                        </span>
+                      </div>
+
+                      <h3 className="font-serif text-xl sm:text-2xl font-medium leading-snug text-ink group-hover:text-pine transition-colors">
+                        {titulo}
+                      </h3>
+
+                      <p className="text-xs sm:text-sm text-ink-soft leading-relaxed line-clamp-3">
+                        {resumo}
+                      </p>
                     </div>
 
-                    <h3 className="font-serif text-xl sm:text-2xl font-medium leading-snug text-ink group-hover:text-pine transition-colors">
-                      {pat.nome}
-                    </h3>
-
-                    <p className="text-xs sm:text-sm text-ink-soft leading-relaxed line-clamp-3">
-                      {pat.resumo}
-                    </p>
+                    <div className="pt-6 mt-6 border-t border-border/50 flex items-center justify-between">
+                      <Link
+                        to="/patologias/$slug"
+                        params={{ slug: pat.slug }}
+                        className="inline-flex items-center gap-1.5 font-mono text-xs font-semibold text-pine hover:text-amber-deep transition-colors"
+                      >
+                        <span>Saiba mais</span>
+                        <ArrowUpRight className="h-3.5 w-3.5" />
+                      </Link>
+                      <a
+                        href={WHATSAPP}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="rounded-full bg-paper px-3 py-1 font-mono text-[11px] font-semibold text-ink-soft border border-border hover:border-pine hover:text-pine transition-colors"
+                      >
+                        Agendar
+                      </a>
+                    </div>
                   </div>
-
-                  <div className="pt-6 mt-6 border-t border-border/50 flex items-center justify-between">
-                    <Link
-                      to="/patologias/$slug"
-                      params={{ slug: pat.slug }}
-                      className="inline-flex items-center gap-1.5 font-mono text-xs font-semibold text-pine hover:text-amber-deep transition-colors"
-                    >
-                      <span>Saiba mais sobre a condição</span>
-                      <ArrowUpRight className="h-3.5 w-3.5" />
-                    </Link>
-                    <a
-                      href={WHATSAPP}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="rounded-full bg-paper px-3 py-1 font-mono text-[11px] font-semibold text-ink-soft border border-border hover:border-pine hover:text-pine transition-colors"
-                    >
-                      Agendar
-                    </a>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
+                </Reveal>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -232,61 +237,52 @@ function IndexPage() {
           </div>
 
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {artigosDestaque.map((artigo, i) => (
-              <Reveal key={artigo.slug} delay={i * 60}>
-                <Link
-                  to="/noticias/$slug"
-                  params={{ slug: artigo.slug }}
-                  className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 hover:-translate-y-1.5 hover:border-amber-500/40 hover:shadow-xl shadow-xs"
-                >
-                  <div className="h-[200px] w-full overflow-hidden bg-slate-100">
-                    <img
-                      src={artigo.imagem}
-                      alt={artigo.titulo}
-                      onError={(e) => {
-                        e.currentTarget.onerror = null;
-                        e.currentTarget.src =
-                          "https://images.unsplash.com/photo-1611070342080-6927d6d8db23?auto=format&fit=crop&w=800&q=80";
-                      }}
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                  </div>
-                  <div className="flex flex-1 flex-col gap-3 p-6">
-                    <span className="font-mono text-[11px] font-semibold text-amber-deep">
-                      {artigo.categoria}
-                    </span>
-                    <h3 className="font-serif text-[18px] font-medium leading-snug text-ink group-hover:text-pine transition-colors">
-                      {artigo.titulo}
-                    </h3>
-                    <p className="line-clamp-2 text-xs text-ink-soft leading-relaxed">
-                      {artigo.resumo}
-                    </p>
-                    <div className="mt-auto pt-4 flex items-center justify-between border-t border-border/40 font-mono text-[11.5px] font-semibold text-pine">
-                      <span>Ler matéria</span>
-                      <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+            {artigosDestaque.map((artigo, i) => {
+              const imagem = "capa" in artigo ? (artigo as { capa: string }).capa : (artigo as { imagem?: string }).imagem;
+
+              return (
+                <Reveal key={artigo.slug} delay={i * 60}>
+                  <Link
+                    to="/noticias/$slug"
+                    params={{ slug: artigo.slug }}
+                    className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 hover:-translate-y-1.5 hover:border-amber-500/40 hover:shadow-xl shadow-xs"
+                  >
+                    <div className="h-[200px] w-full overflow-hidden bg-slate-100">
+                      <img
+                        src={imagem || "https://images.unsplash.com/photo-1611070342080-6927d6d8db23?auto=format&fit=crop&w=800&q=80"}
+                        alt={artigo.titulo}
+                        onError={(e) => {
+                          e.currentTarget.onerror = null;
+                          e.currentTarget.src =
+                            "https://images.unsplash.com/photo-1611070342080-6927d6d8db23?auto=format&fit=crop&w=800&q=80";
+                        }}
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
                     </div>
-                  </div>
-                </Link>
-              </Reveal>
-            ))}
+                    <div className="flex flex-1 flex-col gap-3 p-6">
+                      <span className="font-mono text-[11px] font-semibold text-amber-deep">
+                        {artigo.categoria}
+                      </span>
+                      <h3 className="font-serif text-[18px] font-medium leading-snug text-ink group-hover:text-pine transition-colors">
+                        {artigo.titulo}
+                      </h3>
+                      <p className="line-clamp-2 text-xs text-ink-soft leading-relaxed">
+                        {artigo.resumo}
+                      </p>
+                      <div className="mt-auto pt-4 flex items-center justify-between border-t border-border/40 font-mono text-[11.5px] font-semibold text-pine">
+                        <span>Ler matéria</span>
+                        <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                      </div>
+                    </div>
+                  </Link>
+                </Reveal>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* 5. NEWSLETTER */}
-      <section className="border-b border-border bg-paper py-16">
-        <div className="wrap max-w-3xl text-center space-y-4">
-          <Eyebrow>Fique por dentro</Eyebrow>
-          <h2 className="font-serif text-2xl sm:text-4xl text-pine">
-            Receba conteúdo sobre cannabis medicinal direto no seu e-mail.
-          </h2>
-          <p className="text-ink-soft text-sm sm:text-base leading-relaxed">
-            Um envio ocasional com novidades sobre tratamentos, patologias e atualizações científicas. Sem spam.
-          </p>
-        </div>
-      </section>
-
-      {/* 6. CTA FINAL */}
+      {/* 5. CTA FINAL */}
       <section className="bg-pine py-16 md:py-24 text-paper text-center">
         <div className="wrap max-w-3xl space-y-6">
           <span className="inline-block rounded-full bg-paper/10 px-3.5 py-1 font-mono text-xs font-semibold uppercase tracking-wider text-amber-deep">
