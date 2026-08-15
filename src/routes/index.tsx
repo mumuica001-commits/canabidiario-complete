@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ActionLink, ArrowRight, Eyebrow, SectionHead, WHATSAPP } from "../components/site/ui";
 import { Reveal } from "../components/site/Reveal";
 import { patologias } from "../data/patologias";
@@ -50,28 +50,42 @@ const steps = [
   },
 ];
 
+const SPLASH_DROPS = [
+  { dx: -34, dy: -6, delay: 0 },
+  { dx: 30, dy: -10, delay: 30 },
+  { dx: -20, dy: 14, delay: 60 },
+  { dx: 22, dy: 16, delay: 15 },
+  { dx: -8, dy: -22, delay: 45 },
+  { dx: 10, dy: -20, delay: 75 },
+];
+
 function Index() {
   const [isOpened, setIsOpened] = useState(false);
   const [isDropping, setIsDropping] = useState(false);
+  const [dropOrigin, setDropOrigin] = useState<{ x: number; y: number } | null>(null);
+  const bottleImgRef = useRef<HTMLImageElement>(null);
 
-  // Alterna o estado (ativa/desativa o tema) acionando o efeito da gota
-  const toggleThemeEffect = () => {
-    setIsDropping(true);
+  // Ao carregar a página, aguarda ~2s e dispara sozinho o efeito da gota:
+  // ela nasce na ponta do frasco, cai com física de óleo (fio que estica e
+  // rompe, aceleração de queda, splat de impacto) e por fim se espalha
+  // organicamente cobrindo a tela, revelando a paleta âmbar do site.
+  useEffect(() => {
+    const trigger = setTimeout(() => {
+      const bottleEl = bottleImgRef.current;
+      if (bottleEl) {
+        const rect = bottleEl.getBoundingClientRect();
+        setDropOrigin({ x: rect.left + rect.width / 2, y: rect.top + rect.height * 0.08 });
+      }
+      setIsDropping(true);
 
-    if (!isOpened) {
-      setTimeout(() => {
-        setIsOpened(true);
-      }, 1100);
-    } else {
-      setTimeout(() => {
-        setIsOpened(false);
-      }, 900);
-    }
+      // A cor do site vira no meio do impacto, junto com o início do espalhamento.
+      setTimeout(() => setIsOpened(true), 1450);
+      // Remove o overlay depois que a animação termina por completo.
+      setTimeout(() => setIsDropping(false), 2500);
+    }, 2000);
 
-    setTimeout(() => {
-      setIsDropping(false);
-    }, 1800);
-  };
+    return () => clearTimeout(trigger);
+  }, []);
 
   return (
     <main
@@ -89,10 +103,27 @@ function Index() {
         </defs>
       </svg>
 
-      {/* OVERLAY DA GOTA HIPER-REALISTA */}
-      {isDropping && (
-        <div className="pointer-events-none fixed inset-0 z-50 flex items-center justify-center overflow-hidden bg-black/10 backdrop-blur-[1px]">
-          <div className="h-28 w-28 animate-oil-drop shadow-2xl" />
+      {/* OVERLAY DA GOTA DE ÓLEO REALISTA: fio viscoso + gota + sombra + respingos */}
+      {isDropping && dropOrigin && (
+        <div className="pointer-events-none fixed inset-0 z-50 overflow-hidden">
+          <div className="absolute" style={{ left: dropOrigin.x, top: dropOrigin.y }}>
+            <div className="oil-shadow" />
+            <div className="oil-neck" />
+            <div className="oil-drop shadow-2xl" />
+            {SPLASH_DROPS.map((s, i) => (
+              <div
+                key={i}
+                className="oil-splash"
+                style={
+                  {
+                    "--dx": `${s.dx}px`,
+                    "--dy": `${s.dy}px`,
+                    animationDelay: `${s.delay}ms`,
+                  } as React.CSSProperties
+                }
+              />
+            ))}
+          </div>
         </div>
       )}
 
@@ -144,7 +175,7 @@ function Index() {
               </Reveal>
             </div>
 
-            {/* Frasco Flutuante e Interativo */}
+            {/* Frasco Flutuante */}
             <Reveal delay={120} className="relative flex flex-col items-center justify-center pt-8 lg:pt-0">
               <div
                 className={`absolute transition-all duration-1000 -z-10 ${
@@ -154,54 +185,18 @@ function Index() {
                 }`}
               />
 
-              <button
-                type="button"
-                onClick={toggleThemeEffect}
-                className="group relative flex cursor-pointer flex-col items-center border-none bg-transparent p-0 outline-none focus:outline-none"
-                title={isOpened ? "Clique para desativar o tema" : "Clique no frasco para soltar a gota de óleo"}
-              >
-                <div className="animate-[spin-once_1.2s_cubic-bezier(0.16,1,0.3,1)_forwards]">
-                  <img
-                    src="/frasco.png"
-                    alt="Frasco de Óleo de Canabidiol"
-                    onError={(e) => {
-                      e.currentTarget.onerror = null;
-                      e.currentTarget.src = "https://i.ibb.co/L6v3Zbg/frasco-cbd.png";
-                    }}
-                    className="h-auto w-[260px] sm:w-[320px] lg:w-[380px] drop-shadow-2xl transition-transform duration-500 animate-[float_4s_ease-in-out_infinite] group-hover:scale-105"
-                  />
-                </div>
-
-                {/* BOTÃO BADGE QUADRADO */}
-                <div
-                  className={`mt-5 inline-flex items-center gap-2.5 rounded-none border px-4 py-2 font-mono text-[11.5px] tracking-wide shadow-xs backdrop-blur-md transition-all duration-300 group-hover:scale-105 ${
-                    isOpened
-                      ? "border-amber-600/30 bg-amber-500/20 text-amber-950 shadow-amber-500/10 group-hover:bg-amber-500/30"
-                      : "border-emerald-700/20 bg-emerald-700/10 text-emerald-900 shadow-emerald-700/5 group-hover:bg-emerald-700/20"
-                  }`}
-                >
-                  <span className="relative flex h-2 w-2">
-                    <span
-                      className={`absolute inline-flex h-full w-full animate-ping ${
-                        isOpened ? "bg-amber-600" : "bg-emerald-600"
-                      }`}
-                    />
-                    <span
-                      className={`relative inline-flex h-2 w-2 ${
-                        isOpened ? "bg-amber-600" : "bg-emerald-700"
-                      }`}
-                    />
-                  </span>
-
-                  <span className="font-medium">
-                    {isOpened ? "Tema Âmbar Ativo (Clique para desativar)" : "Clique para dosar a gota"}
-                  </span>
-
-                  <span className="transition-transform duration-300 group-hover:translate-x-0.5">
-                    {isOpened ? "✨" : "💧"}
-                  </span>
-                </div>
-              </button>
+              <div className="animate-[spin-once_1.2s_cubic-bezier(0.16,1,0.3,1)_forwards]">
+                <img
+                  ref={bottleImgRef}
+                  src="/frasco.png"
+                  alt="Frasco de Óleo de Canabidiol"
+                  onError={(e) => {
+                    e.currentTarget.onerror = null;
+                    e.currentTarget.src = "https://i.ibb.co/L6v3Zbg/frasco-cbd.png";
+                  }}
+                  className="h-auto w-[260px] sm:w-[320px] lg:w-[380px] drop-shadow-2xl animate-[float_4s_ease-in-out_infinite]"
+                />
+              </div>
             </Reveal>
           </div>
         </div>
@@ -265,8 +260,9 @@ function Index() {
                   <h3 className="mt-4 font-sans text-[18px] font-semibold leading-snug text-ink group-hover:text-pine">
                     {p.nome}
                   </h3>
+
                   <p className="mt-2.5 line-clamp-3 text-xs text-ink-soft leading-relaxed">
-                    {(p as any).descricao ||
+                    {p.resumo ||
                       "Acompanhamento especializado para manejo da dor, modulação sintomática e suporte contínuo com medicina canabinoide."}
                   </p>
                 </div>

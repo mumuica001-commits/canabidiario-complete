@@ -666,4 +666,139 @@ export const artigos: Artigo[] = [
       <p>Óleos e produtos formulados para uso humano frequentemente contêm excipientes ou concentrações inadequadas para pets. O tratamento deve sempre utilizar produtos veterinários específicos, prescritos por um médico-veterinário.</p>
     `,
   },
+  {
+    slug: "como-surgiu-o-canabidiario",
+    titulo: "Como surgiu o Canabidiário?",
+    resumo:
+      "Conheça a origem do Canabidiário: uma página informativa sobre cannabis medicinal nascida da experiência pessoal de um de seus fundadores.",
+    categoria: "Novidades",
+    tag: "Nossa História",
+    data: "02 de Abril, 2024",
+    autor: "Redação Canabidiário",
+    imagem:
+      "https://canabidiario.com.br/wp-content/uploads/elementor/thumbs/customcolor_logo_customcolor_background-1-qm3km8u4kkgffchk5h44w0bu82x0h90ta7on2erhh8.png",
+    conteudo: `
+      <p class="lead">Somos uma página informativa sobre cannabis medicinal. Por aqui, você encontra informações confiáveis sobre as áreas científica, jurídica e de negócios que envolvem a cannabis.</p>
+      <p>Nosso objetivo é trazer conhecimento sobre os benefícios terapêuticos da planta, as condições que ela pode ajudar a tratar e seus diferentes métodos de uso, sempre respeitando a legislação brasileira e as determinações da ANVISA.</p>
+      <h2>Uma origem pessoal</h2>
+      <p>O Canabidiário nasceu da experiência pessoal de um dos autores da página, que convive com uma condição crônica e passou a usar a cannabis para aliviar seus sintomas. Interessado pelo tema, decidiu se aprofundar nos estudos — ainda mais próximo da área profissional, a odontologia, que atende aos requisitos básicos para prescrição da cannabis.</p>
+      <p>Pouco depois, o filho mais velho, também curioso sobre o assunto, defendeu sua monografia com o tema "Judicialização da Saúde e Cannabis Medicinal".</p>
+      <h2>Um mar aberto a explorar</h2>
+      <p>Mergulhando nesse universo de conhecimento, passamos a enxergar a cannabis como um "mar aberto a ser explorado" em suas diversas aplicações. Acreditamos que, além do potencial medicinal já comprovado, a planta em breve voltará a ser vista como "commodity", reconhecendo seu valor intrínseco e sua versatilidade.</p>
+      <p>Prepare-se para essa jornada rumo ao futuro da cannabis: novas aplicações, inovações científicas, oportunidades de mercado e os desafios de construir, com responsabilidade, um caminho mais aberto para a medicina canabinoide.</p>
+    `,
+  },
+  {
+    slug: "a-historia-da-cannabis",
+    titulo: "A história da Cannabis",
+    resumo:
+      "Da Mesopotâmia às caravelas portuguesas: uma retrospectiva sobre a origem milenar da cannabis e sua trajetória até chegar — e ser proibida — no Brasil.",
+    categoria: "Novidades",
+    tag: "Nossa História",
+    data: "07 de Abril, 2024",
+    autor: "Redação Canabidiário",
+    imagem:
+      "https://canabidiario.com.br/wp-content/uploads/elementor/thumbs/maconha-planta-canabidiario-qm3mxauqgk5jaxue5vkdpjt3urjlmfqz1aw6nlm5oc.webp",
+    conteudo: `
+      <p class="lead">No Brasil, é comum chamar qualquer tipo de cannabis de "maconha" — uma nomenclatura carregada de preconceito e opressão. Mas a planta é cultivada há milhares de anos, em regiões muito diferentes do mundo, e sua história é bem mais rica do que o estigma sugere.</p>
+      <h2>Uma planta com milênios de história</h2>
+      <p>Registros históricos indicam que a cannabis é originária da região do Tibete. Por volta de 8.000 a.C., as fibras extraídas da planta — o cânhamo — já faziam parte da cultura têxtil na Mesopotâmia. Em torno de 5.000 a.C., na China, seu uso já ia muito além das fibras: os primeiros relatos de uso religioso, recreativo e até alimentar começam a aparecer, o que explica a presença das sementes de cânhamo entre os cinco grãos sagrados chineses.</p>
+      <h2>Chegada ao Brasil</h2>
+      <p>A planta chegou ao território brasileiro por volta de 1500, trazida por africanos escravizados que já consumiam a "diamba". Ao mesmo tempo, a Coroa Portuguesa utilizava o cânhamo como matéria-prima para velas, cordas e vestuário das embarcações — as próprias fibras que ajudaram as caravelas a atravessar o Atlântico. Devido à riqueza do solo brasileiro, a planta se espalhou rapidamente, e a Coroa chegou a instalar a "Real Feitoria do Linho Cânhamo" no século XVIII.</p>
+      <h2>Os primeiros sinais de proibição</h2>
+      <p>O cenário muda por volta de 1800: o Brasil torna-se um dos primeiros países a proibir o "pito do pango", uma proibição aplicada de forma seletiva à população negra, enquanto farmácias vendiam livremente os chamados "cigarros índios" de cannabis. Essa postura conservadora se repetiu na Conferência Internacional do Ópio, influenciando também Inglaterra, Portugal e Estados Unidos — onde o estigma racial em torno da planta ajudou a consolidar décadas de proibição.</p>
+      <p>Hoje, mais de 35 estados americanos já possuem algum tipo de regulamentação para a cannabis. A história da maconha no Brasil é longa e cheia de contradições — mas é justamente por isso que vale a pena conhecê-la.</p>
+    `,
+  },
+  {
+    slug: "a-cannabis-e-a-disfuncao-temporomandibular",
+    titulo: "A Cannabis e a Disfunção Temporomandibular",
+    resumo:
+      "Entenda como os efeitos anti-inflamatórios e analgésicos da cannabis podem auxiliar no tratamento da Disfunção Temporomandibular (DTM), uma das condições orofaciais mais comuns.",
+    categoria: "Odontologia",
+    tag: "Odontologia Canabinoide",
+    data: "15 de Abril, 2024",
+    autor: "Redação Canabidiário",
+    imagem:
+      "https://canabidiario.com.br/wp-content/uploads/elementor/thumbs/dentista-cananbis-linhacanabica-qmr3m59cvvki7natv9mbgzfjpq7x0yr5v3xm4u49j0.webp",
+    conteudo: `
+      <p class="lead">O tratamento com cannabis pode ser aplicado em diversas áreas da odontologia. Através de seus efeitos anti-inflamatórios e analgésicos, ela pode ser uma aliada no manejo da Disfunção Temporomandibular (DTM) e também das doenças gengivais — além de atuar como antisséptico, inibindo a proliferação do Streptococcus mutans, principal bactéria causadora da cárie.</p>
+      <h2>O que é a DTM</h2>
+      <p>Segundo a Academia Americana de Desordens Temporomandibulares, o termo "Disfunção Temporomandibular" abrange diversos problemas clínicos envolvendo a musculatura da mastigação, a articulação temporomandibular (ATM) e estruturas associadas. É a principal causa de dor não dentária da região orofacial, presente em mais de 50% da população — com maior prevalência entre mulheres — e cerca de 5% dos casos exigem algum tipo de intervenção.</p>
+      <h2>Sintomas mais comuns</h2>
+      <p>Sons na articulação ao abrir e fechar a boca, cansaço e enrijecimento da mandíbula, cefaleia e otalgia estão entre os sintomas mais frequentes. A causa costuma ser multifatorial: apertamento dos dentes ligado a estresse e ansiedade, hábitos parafuncionais, alterações posturais, traumas, má oclusão e doenças sistêmicas podem estar envolvidos.</p>
+      <h2>Como a cannabis pode ajudar</h2>
+      <p>Estudos recentes apontam que os fitocanabinoides atuam na modulação da inflamação e no relaxamento muscular, além de contribuir para o controle dos fatores emocionais que costumam agravar a DTM — aliviando estresse e ansiedade ao mesmo tempo em que reduzem a dor. Por se tratar de um tratamento fitoterápico, o perfil de efeitos colaterais tende a ser mais brando que o de opções convencionais.</p>
+    `,
+  },
+  {
+    slug: "os-tricomas-e-a-importancia-no-desenvolvimento-da-planta",
+    titulo: "Tricomas e a importância para o desenvolvimento da planta",
+    resumo:
+      "Os tricomas são as estruturas responsáveis por produzir e proteger os canabinoides e terpenos da cannabis. Entenda seus tipos e por que sua cor indica o ponto certo de colheita.",
+    categoria: "Biologia",
+    tag: "Botânica da Cannabis",
+    data: "13 de Maio, 2024",
+    autor: "Redação Canabidiário",
+    imagem:
+      "https://canabidiario.com.br/wp-content/uploads/elementor/thumbs/Os-tricomas-da-cannabis-qo99auvr4cmhgsa4382brlv23szry02owz6vm6m69o.jpeg",
+    conteudo: `
+      <p class="lead">Os tricomas são estruturas fundamentais no desenvolvimento da planta de cannabis. THC, CBD e outros canabinoides não ficam concentrados nas folhas ou nos galhos, mas sim nas flores — mais especificamente em pequenas partículas parecidas com gotículas, os tricomas.</p>
+      <h2>Um protetor solar natural</h2>
+      <p>Os tricomas são os principais responsáveis pela biossíntese de canabinoides e terpenos, atuando como uma espécie de "protetor solar" da planta. Fatores ambientais como umidade e iluminação — especialmente em cultivo indoor — influenciam diretamente a quantidade produzida. Por serem extremamente frágeis, o manuseio das flores tricomadas exige cuidado: um simples movimento brusco pode desprendê-los.</p>
+      <h2>A cor indica o momento da colheita</h2>
+      <p>Cultivadores usam a coloração dos tricomas como referência para o ponto de colheita: no início da floração eles são claros, escurecendo progressivamente até ficarem turvos e, por fim, com tons âmbar. O momento ideal costuma ser quando cerca de 70% estão turvos e 30% já apresentam a cor âmbar.</p>
+      <h2>Tricomas glandulares e não-glandulares</h2>
+      <p>Existem seis tipos de tricomas, divididos em dois grandes grupos. Os <strong>não-glandulares</strong> têm função protetora, defendendo a planta contra insetos, perda de água e fungos. Já os <strong>glandulares</strong> — bulbosos, sésseis capitados e de haste capitada — são os responsáveis por produzir e armazenar a resina rica em canabinoides e terpenos, sendo os de haste capitada os que concentram a maior parte desses compostos.</p>
+      <h2>Por que isso importa</h2>
+      <p>Quanto mais tricomas uma planta desenvolve, maior seu potencial terapêutico. Por isso, entender essas estruturas é essencial tanto para cultivadores quanto para quem busca compreender de onde vêm, de fato, os compostos ativos da cannabis medicinal.</p>
+    `,
+  },
+  {
+    slug: "extracao-dos-tricomas",
+    titulo: "As extrações dos tricomas",
+    resumo:
+      "Dry, Kief, Ice e Rosin: conheça as principais técnicas de extração de tricomas usadas para concentrar canabinoides a partir das flores de cannabis.",
+    categoria: "Biologia",
+    tag: "Botânica da Cannabis",
+    data: "16 de Maio, 2024",
+    autor: "Redação Canabidiário",
+    imagem:
+      "https://canabidiario.com.br/wp-content/uploads/elementor/thumbs/Extracao-cannabis-CBD-qo997dv7vdvcknbpd80y1zer3k3yi9ae3sfasdrj98.jpeg",
+    conteudo: `
+      <p class="lead">Entre as diversas formas de consumo da cannabis, o haxixe se destaca pela capacidade de concentrar canabinoides através da extração dos tricomas presentes nas flores. Conheça as principais técnicas usadas nesse processo.</p>
+      <h2>Dry (seco)</h2>
+      <p>O termo "dry" indica que a extração dos tricomas aconteceu a seco, sem contato com químicos ou água. As variações mais conhecidas são o "dry sift", obtido por peneiramento da erva, e o "dry ice", que usa gelo seco para facilitar a separação dos tricomas.</p>
+      <h2>Kief</h2>
+      <p>Um processo simples e parecido com o dry, o Kief se diferencia pela maior quantidade de matéria vegetal presente na extração final.</p>
+      <h2>Ice (gelo)</h2>
+      <p>Também chamada de "ice hash" ou "bubble hash", essa técnica usa gelo para deixar os tricomas menos grudentos, facilitando sua separação da matéria vegetal com o auxílio de bolsas de filtragem.</p>
+      <h2>Rosin</h2>
+      <p>O Rosin combina prensa e calor para extrair a resina sem uso de solventes. A alta temperatura provoca a descarboxilação, transformando o THC-A em THC. Existem duas variações — "flower rosin" e "hash rosin" — sendo esta última capaz de atingir níveis mais altos de pureza, por partir de uma extração prévia.</p>
+      <h2>Ciência avança, cautela permanece</h2>
+      <p>A pesquisa sobre cannabis medicinal avança rapidamente, revelando novos usos terapêuticos. Ainda assim, o consumo por queima ou combustão não é a via mais indicada, e a automedicação é sempre arriscada — a orientação de um profissional qualificado é essencial para definir a forma de uso e a dosagem mais adequadas para cada caso.</p>
+    `,
+  },
+  {
+    slug: "a-pec-45-2023-e-a-criminalizacao-das-drogas-no-brasil",
+    titulo: "A PEC 45/2023 e a criminalização das drogas no Brasil",
+    resumo:
+      "Um panorama sobre a PEC 45/2023, o histórico do debate sobre descriminalização de drogas no Brasil desde 2015 e os argumentos de cada lado dessa discussão.",
+    categoria: "Regulamentação",
+    tag: "Legislação",
+    data: "13 de Maio, 2024",
+    autor: "Redação Canabidiário",
+    imagem:
+      "https://canabidiario.com.br/wp-content/uploads/elementor/thumbs/Cannabis-Medicinal-ja-canabidiario--qo442908m3sx9mt02ojg4enqt1pmuq5xefmp3a8664.jpeg",
+    conteudo: `
+      <p class="lead">Em 2023, o Senado Federal avançou na discussão da PEC 45/2023, proposta de emenda constitucional que buscava tornar crime, em qualquer quantidade, portar ou possuir drogas — incluindo a cannabis. O tema reacendeu um debate que estava praticamente parado desde 2015.</p>
+      <h2>Como o debate chegou até aqui</h2>
+      <p>Em 2015, o STF sinalizou favoravelmente à descriminalização do porte de drogas para uso pessoal, no julgamento do Recurso Extraordinário 635.659 — caso que teve origem em 2011. Entre 2015 e 2023, o tratamento dado à cannabis mudou significativamente no cenário mundial: o Uruguai legalizou o uso completo da planta, a maioria dos estados americanos avançou em algum tipo de regulamentação, a Argentina descriminalizou o porte desde 2009 e o Chile regulamentou o uso medicinal em 2019.</p>
+      <h2>Dois lados do debate</h2>
+      <p>De um lado, defensores da descriminalização argumentam que a chamada "guerra às drogas" fracassou e que a cannabis tem benefícios medicinais e industriais reconhecidos. Do outro, opositores da mudança sustentam que a substância é prejudicial e que a legalização ampliaria o consumo. Consultas públicas promovidas pelo próprio Senado sobre o tema, como a SUG 25/2017 (que tratava da descriminalização do cultivo para uso próprio), registraram ampla maioria de respostas favoráveis à mudança.</p>
+      <h2>O que está em jogo</h2>
+      <p>Para além do debate moral, defensores da regulamentação apontam potencial de geração de empregos, arrecadação tributária e desenvolvimento de um mercado próprio, além de possíveis impactos na redução da superlotação prisional — já que uma parcela relevante das prisões por tráfico de maconha no país envolve pequenas quantidades da substância.</p>
+      <p>A discussão sobre a PEC 45/2023 segue em aberto no Congresso, e seus desdobramentos têm impacto direto sobre o futuro do acesso à cannabis — inclusive para fins medicinais — no Brasil.</p>
+    `,
+  },
 ];
