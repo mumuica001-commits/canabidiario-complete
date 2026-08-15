@@ -7,43 +7,49 @@
  * All colors in oklch. Never hardcode colors in components.
  */
 
-:root {
+@theme {
+  --radius: 6px;
   --radius-sm: calc(var(--radius) - 3px);
   --radius-md: calc(var(--radius) - 1px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 6px);
 
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--card);
-  --color-popover-foreground: var(--card-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
-  --color-border: var(--border);
-  --color-border-strong: var(--border-strong);
-  --color-input: var(--border-strong);
-  --color-ring: var(--amber-deep);
+  /* Paleta base */
+  --color-paper: oklch(0.951 0.012 116.8);
+  --color-paper-deep: oklch(0.922 0.016 118.1);
+  --color-ink: oklch(0.249 0.017 155.8);
+  --color-ink-soft: oklch(0.395 0.022 152.9);
+  --color-pine: oklch(0.325 0.044 159.3);
+  --color-pine-2: oklch(0.404 0.054 162.2);
+  --color-pine-deep: oklch(0.258 0.038 158.5);
+  --color-amber: oklch(0.655 0.11 74.6);
+  --color-amber-deep: oklch(0.539 0.093 73);
+  --color-amber-soft: oklch(0.854 0.072 81.8);
+  --color-card-soft: oklch(0.984 0.009 100);
 
-  --color-paper: var(--paper);
-  --color-paper-deep: var(--paper-deep);
-  --color-ink: var(--ink);
-  --color-ink-soft: var(--ink-soft);
-  --color-pine: var(--pine);
-  --color-pine-2: var(--pine-2);
-  --color-amber: var(--amber);
-  --color-amber-deep: var(--amber-deep);
-  --color-amber-soft: var(--amber-soft);
-  --color-card-soft: var(--card-soft);
+  /* Tokens semânticos */
+  --color-background: var(--color-paper);
+  --color-foreground: var(--color-ink);
+  --color-card: oklch(0.972 0.009 100);
+  --color-card-foreground: var(--color-ink);
+  --color-popover: oklch(0.972 0.009 100);
+  --color-popover-foreground: var(--color-ink);
+  --color-primary: var(--color-pine);
+  --color-primary-foreground: var(--color-paper);
+  --color-secondary: var(--color-paper-deep);
+  --color-secondary-foreground: var(--color-pine);
+  --color-muted: var(--color-paper-deep);
+  --color-muted-foreground: var(--color-ink-soft);
+  --color-accent: var(--color-amber-deep);
+  --color-accent-foreground: oklch(0.974 0.017 88);
+  --color-destructive: oklch(0.577 0.245 27.325);
+  --color-destructive-foreground: oklch(0.984 0.003 247.858);
+  --color-border: oklch(0.249 0.017 155.8 / 0.14);
+  --color-border-strong: oklch(0.249 0.017 155.8 / 0.24);
+  --color-input: oklch(0.249 0.017 155.8 / 0.24);
+  --color-ring: var(--color-amber-deep);
+  --color-sidebar: oklch(0.972 0.009 100);
+  --color-sidebar-foreground: var(--color-ink);
 
   --font-serif: "Fraunces", Georgia, serif;
   --font-sans: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
@@ -51,7 +57,6 @@
 
   --shadow-elegant: 0 20px 50px -25px oklch(0.3 0.03 150 / 0.45);
 
-  /* Registro de animações no Tailwind v4 */
   --animate-spin-once: spin-once 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   --animate-float: float 4s ease-in-out infinite;
 }
@@ -78,36 +83,27 @@
 }
 
 :root {
-  --radius: 6px;
-
-  --paper: oklch(0.951 0.012 116.8);
-  --paper-deep: oklch(0.922 0.016 118.1);
-  --ink: oklch(0.249 0.017 155.8);
-  --ink-soft: oklch(0.395 0.022 152.9);
-  --pine: oklch(0.325 0.044 159.3);
-  --pine-2: oklch(0.404 0.054 162.2);
-  --amber: oklch(0.655 0.11 74.6);
-  --amber-deep: oklch(0.539 0.093 73);
-  --amber-soft: oklch(0.854 0.072 81.8);
-  --card-soft: oklch(0.984 0.009 100);
-
-  --background: var(--paper);
-  --foreground: var(--ink);
-  --card: oklch(0.972 0.009 100);
-  --card-foreground: var(--ink);
-  --primary: var(--pine);
-  --primary-foreground: var(--paper);
-  --secondary: var(--paper-deep);
-  --secondary-foreground: var(--pine);
-  --muted: var(--paper-deep);
-  --muted-foreground: var(--ink-soft);
-  --accent: var(--amber-deep);
-  --accent-foreground: oklch(0.974 0.017 88);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.249 0.017 155.8 / 0.14);
-  --border-strong: oklch(0.249 0.017 155.8 / 0.24);
+  --background: var(--color-background);
+  --foreground: var(--color-foreground);
+  --card: var(--color-card);
+  --card-foreground: var(--color-card-foreground);
+  --popover: var(--color-popover);
+  --popover-foreground: var(--color-popover-foreground);
+  --primary: var(--color-primary);
+  --primary-foreground: var(--color-primary-foreground);
+  --secondary: var(--color-secondary);
+  --secondary-foreground: var(--color-secondary-foreground);
+  --muted: var(--color-muted);
+  --muted-foreground: var(--color-muted-foreground);
+  --accent: var(--color-accent);
+  --accent-foreground: var(--color-accent-foreground);
+  --destructive: var(--color-destructive);
+  --destructive-foreground: var(--color-destructive-foreground);
+  --border: var(--color-border);
+  --input: var(--color-input);
+  --ring: var(--color-ring);
 }
+
 
 @layer base {
   * {
