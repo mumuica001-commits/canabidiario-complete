@@ -26,13 +26,6 @@ export function Header() {
 
   return (
     <>
-      {/* Barra de topo */}
-      <div className="bg-pine px-5 py-2 text-center font-mono text-[12px] tracking-[0.02em] text-paper">
-        Canabidiário — orientação e acompanhamento{" "}
-        <b className="font-medium text-amber-soft">com profissionais habilitados</b>, conforme a
-        legislação vigente.
-      </div>
-
       <header className="sticky top-0 z-100 px-3 pt-3">
         <div className="glass mx-auto flex max-w-[1180px] items-center justify-between rounded-full px-5 py-2.5 shadow-[0_8px_30px_-14px_oklch(0.17_0.02_155_/_0.35)] md:px-6">
           <Link
