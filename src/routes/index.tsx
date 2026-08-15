@@ -70,6 +70,23 @@ function Index() {
   // rompe, aceleração de queda, splat de impacto) e por fim se espalha
   // organicamente cobrindo a tela, revelando a paleta âmbar do site.
   useEffect(() => {
+    // A animação da gota acontece apenas na primeira visita do usuário.
+    let jaViu = true;
+    try {
+      jaViu = window.localStorage.getItem("cbd-gota-vista") === "1";
+    } catch {
+      jaViu = false;
+    }
+    if (jaViu) {
+      setIsOpened(true);
+      return;
+    }
+    try {
+      window.localStorage.setItem("cbd-gota-vista", "1");
+    } catch {
+      /* ignora indisponibilidade do storage */
+    }
+
     const trigger = setTimeout(() => {
       const bottleEl = bottleImgRef.current;
       if (bottleEl) {
@@ -79,9 +96,9 @@ function Index() {
       setIsDropping(true);
 
       // A cor do site vira no meio do impacto, junto com o início do espalhamento.
-      setTimeout(() => setIsOpened(true), 1450);
+      setTimeout(() => setIsOpened(true), 1750);
       // Remove o overlay depois que a animação termina por completo.
-      setTimeout(() => setIsDropping(false), 2500);
+      setTimeout(() => setIsDropping(false), 2750);
     }, 2000);
 
     return () => clearTimeout(trigger);
@@ -110,6 +127,7 @@ function Index() {
             <div className="oil-shadow" />
             <div className="oil-neck" />
             <div className="oil-drop shadow-2xl" />
+            <div className="oil-wave" />
             {SPLASH_DROPS.map((s, i) => (
               <div
                 key={i}
@@ -137,9 +155,8 @@ function Index() {
                 <Eyebrow>Canabidiário — Medicina Canabinoide</Eyebrow>
               </Reveal>
               <Reveal delay={80}>
-                <h1 className="my-6 text-[clamp(38px,5.4vw,66px)] leading-[1.05]">
-                  O alívio existe.
-                  <br />A ciência{" "}
+                <h1 className="my-6 text-balance text-[clamp(38px,5.4vw,66px)] leading-[1.05]">
+                  O alívio existe. A ciência{" "}
                   <em
                     className={`italic transition-colors duration-700 ${
                       isOpened ? "text-[#b46219]" : "text-amber-deep"
@@ -156,7 +173,7 @@ function Index() {
                 </p>
               </Reveal>
               <Reveal delay={200} className="flex flex-wrap items-center gap-5">
-                <ActionLink href={WHATSAPP} variant="amber">
+                <ActionLink href={WHATSAPP} variant="primary">
                   Agendar consulta
                 </ActionLink>
                 <ActionLink to="/patologias" variant="ghost">
@@ -210,9 +227,7 @@ function Index() {
             eyebrow="Como funciona"
             title={
               <>
-                Três etapas, um único
-                <br />
-                acompanhamento contínuo.
+                Três etapas, um único acompanhamento contínuo.
               </>
             }
             description="O processo é conduzido de ponta a ponta por profissionais associados, para que você tenha clareza em todas as fases do tratamento."
@@ -247,11 +262,11 @@ function Index() {
             {patologias.slice(0, 6).map((p) => (
               <div
                 key={p.slug}
-                className="group flex flex-col justify-between rounded-none border border-border bg-card p-6 shadow-xs transition-all duration-300 hover:-translate-y-1.5 hover:border-amber-500/40 hover:bg-white hover:shadow-md"
+                className="group flex flex-col justify-between rounded-none border border-border bg-card p-6 shadow-xs transition-all duration-300 hover:-translate-y-1.5 hover:border-amber/50 hover:bg-white hover:shadow-md"
               >
                 <div>
                   <div className="flex items-center justify-between">
-                    <span className="inline-block bg-amber-500/10 px-2.5 py-1 font-mono text-[10.5px] font-medium uppercase tracking-[0.08em] text-amber-deep">
+                    <span className="inline-block bg-amber-soft/45 px-2.5 py-1 font-mono text-[10.5px] font-medium uppercase tracking-[0.08em] text-amber-deep">
                       {p.grupo}
                     </span>
                     <span className="font-mono text-xs text-ink-soft">Tratamento Indicado</span>
@@ -313,9 +328,9 @@ function Index() {
                 <Link
                   to="/noticias/$slug"
                   params={{ slug: a.slug }}
-                  className="group flex h-full flex-col overflow-hidden rounded-none border border-border bg-card transition-all duration-300 hover:-translate-y-1.5 hover:border-amber-500/40 hover:shadow-md"
+                  className="group flex h-full flex-col overflow-hidden rounded-none border border-border bg-card transition-all duration-300 hover:-translate-y-1.5 hover:border-amber/50 hover:shadow-md"
                 >
-                  <div className="relative h-[200px] w-full overflow-hidden bg-slate-100">
+                  <div className="relative h-[200px] w-full overflow-hidden bg-paper-deep">
                     <img
                       src={a.imagem || "https://images.unsplash.com/photo-1611070342080-6927d6d8db23?auto=format&fit=crop&w=800&q=80"}
                       alt={a.titulo}
@@ -370,7 +385,7 @@ function Index() {
             Fale conosco pelo WhatsApp e entenda os próximos passos para iniciar o
             acompanhamento — sem compromisso.
           </p>
-          <ActionLink href={WHATSAPP} variant="amber">
+          <ActionLink href={WHATSAPP} variant="onPine">
             Agendar consulta pelo WhatsApp
           </ActionLink>
         </div>

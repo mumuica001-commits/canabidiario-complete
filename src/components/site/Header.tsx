@@ -18,7 +18,6 @@ const links = [
   { to: "/patologias", label: "Patologias" },
   { to: "/profissionais", label: "Profissionais" },
   { to: "/noticias", label: "Notícias" },
-  { to: "/contato", label: "Contato" },
 ];
 
 export function Header() {
@@ -105,7 +104,10 @@ export function Header() {
             </Link>
           ))}
         </nav>
-        <ActionLink href={WHATSAPP} variant="amber" className="justify-center">
+        <ActionLink to="/contato" variant="ghost" className="justify-center">
+          Fale conosco
+        </ActionLink>
+        <ActionLink href={WHATSAPP} variant="primary" className="justify-center">
           Agendar consulta
         </ActionLink>
       </div>

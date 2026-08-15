@@ -69,7 +69,8 @@ const base =
 
 const variants = {
   primary: "bg-pine text-paper hover:bg-pine-2 hover:-translate-y-0.5",
-  amber: "bg-amber-deep text-accent-foreground hover:bg-amber hover:-translate-y-0.5",
+  amber: "bg-pine text-paper hover:bg-pine-2 hover:-translate-y-0.5",
+  onPine: "bg-paper text-pine hover:bg-amber-soft hover:-translate-y-0.5",
   ghost: "border-border-strong text-ink hover:border-pine hover:bg-pine/5",
   ghostDark: "border-paper/30 text-paper hover:border-paper hover:bg-paper/10",
 } as const;
