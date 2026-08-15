@@ -1,50 +1,44 @@
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
-export function Reveal({
-  children,
-  className = "",
-  delay = 0,
-  as: Tag = "div",
-}: {
-  children: ReactNode;
-  className?: string;
+interface RevealProps {
+  children: React.ReactNode;
   delay?: number;
-  as?: "div" | "section" | "li" | "article";
-}) {
+  className?: string;
+}
+
+export function Reveal({ children, delay = 0, className = "" }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(true); // Inicializa visível para evitar textos sumidos
 
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    if (!("IntersectionObserver" in window)) {
-      setVisible(true);
-      return;
-    }
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setVisible(true);
-            io.unobserve(entry.target);
-          }
-        });
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry && entry.isIntersecting) {
+          setIsVisible(true);
+          if (ref.current) observer.unobserve(ref.current);
+        }
       },
-      { threshold: 0.12 },
+      { threshold: 0.05, rootMargin: "50px" }
     );
-    io.observe(el);
-    return () => io.disconnect();
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => observer.disconnect();
   }, []);
 
-  const Comp = Tag as "div";
-
   return (
-    <Comp
+    <div
       ref={ref}
-      className={`reveal ${visible ? "is-visible" : ""} ${className}`}
-      style={{ transitionDelay: `${delay}ms` }}
+      style={{
+        transitionDelay: `${delay}ms`,
+      }}
+      className={`transition-all duration-700 ease-out ${
+        isVisible ? "opacity-100 translate-y-0" : "opacity-100 translate-y-0"
+      } ${className}`}
     >
       {children}
-    </Comp>
+    </div>
   );
 }
