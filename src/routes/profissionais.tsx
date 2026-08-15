@@ -1,16 +1,23 @@
 import { useState } from 'react'
 import { createFileRoute } from '@tanstack/react-router'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Search, Stethoscope, CheckCircle2, UserPlus, Send } from 'lucide-react'
+import { Search, Send, UserPlus } from 'lucide-react'
+import { ActionLink, Eyebrow, WHATSAPP } from '../components/site/ui'
+import { Reveal } from '../components/site/Reveal'
 
 export const Route = createFileRoute('/profissionais')({
+  head: () => ({
+    meta: [
+      { title: 'Corpo Clínico & Prescritores — Canabidiário' },
+      {
+        name: 'description',
+        content:
+          'Conheça os médicos, dentistas e veterinários habilitados para acompanhamento e prescrição de cannabis medicinal.',
+      },
+    ],
+  }),
   component: ProfissionaisPage,
 })
 
-// Dados oficiais do Canabidiário
 const PROFISSIONAIS = [
   {
     id: 1,
@@ -75,6 +82,13 @@ function ProfissionaisPage() {
   const [busca, setBusca] = useState('')
   const [categoria, setCategoria] = useState('todos')
 
+  const categorias = [
+    { id: 'todos', label: 'Todas as Áreas' },
+    { id: 'medicos', label: 'Medicina' },
+    { id: 'dentistas', label: 'Odontologia' },
+    { id: 'veterinarios', label: 'Medicina Veterinária' },
+  ]
+
   const profissionaisFiltrados = PROFISSIONAIS.filter((prof) => {
     const termo = busca.toLowerCase()
     const combinaBusca =
@@ -92,137 +106,126 @@ function ProfissionaisPage() {
   })
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 font-sans text-slate-800">
-      <main className="flex-1">
-        {/* Banner Institucional Sóbrio */}
-        <section className="bg-emerald-900 text-white py-12 px-4 sm:px-6 lg:px-8 border-b border-emerald-950">
-          <div className="max-w-5xl mx-auto text-center space-y-3">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-800 text-emerald-100 text-xs font-medium rounded-md">
-              <CheckCircle2 className="w-3.5 h-3.5" />
-              Profissionais Cadastrados e Parceiros
-            </span>
-            <h1 className="text-2xl sm:text-4xl font-bold tracking-tight">
-              Corpo Clínico & Prescritores
-            </h1>
-            <p className="text-emerald-100 max-w-2xl mx-auto text-sm sm:text-base">
-              Conheça os profissionais de saúde habilitados para orientação, tratamento e acompanhamento com cannabis medicinal.
-            </p>
+    <main className="py-12 md:py-20">
+      <div className="wrap space-y-16">
+        {/* CABEÇALHO */}
+        <div className="max-w-3xl space-y-4">
+          <Eyebrow>Corpo Clínico & Prescritores</Eyebrow>
+          <h1 className="text-4xl sm:text-6xl font-serif font-medium text-pine leading-tight">
+            Especialistas dedicados ao seu acompanhamento.
+          </h1>
+          <p className="text-ink-soft text-lg leading-relaxed">
+            Conheça os profissionais de saúde habilitados para orientação, prescrição e acompanhamento individualizado com cannabis medicinal.
+          </p>
+        </div>
+
+        {/* FILTROS E BUSCA */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-y border-border py-6">
+          <div className="flex flex-wrap gap-2">
+            {categorias.map((cat) => (
+              <button
+                key={cat.id}
+                type="button"
+                onClick={() => setCategoria(cat.id)}
+                className={`rounded-full px-4 py-2 font-mono text-xs transition-all ${
+                  categoria === cat.id
+                    ? 'bg-pine text-paper font-medium'
+                    : 'bg-card-soft text-ink-soft border border-border hover:border-pine'
+                }`}
+              >
+                {cat.label}
+              </button>
+            ))}
           </div>
-        </section>
 
-        {/* Filtros e Busca */}
-        <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6">
-          <Card className="bg-white border border-slate-200 shadow-sm rounded-lg">
-            <CardContent className="p-4 sm:p-6 grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
-              <div className="relative sm:col-span-2">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                <Input
-                  type="text"
-                  placeholder="Buscar por nome, especialidade ou registro..."
-                  value={busca}
-                  onChange={(e) => setBusca(e.target.value)}
-                  className="pl-9 bg-slate-50 border-slate-200 focus-visible:ring-emerald-600"
-                />
-              </div>
+          <div className="relative w-full md:w-80">
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-ink-soft" />
+            <input
+              type="text"
+              placeholder="Buscar por nome, registro ou especialidade..."
+              value={busca}
+              onChange={(e) => setBusca(e.target.value)}
+              className="w-full pl-9 pr-4 py-2.5 rounded-lg border border-border bg-card text-xs text-ink outline-none focus:border-amber-deep"
+            />
+          </div>
+        </div>
 
-              <div>
-                <Select value={categoria} onValueChange={setCategoria}>
-                  <SelectTrigger className="bg-slate-50 border-slate-200 focus:ring-emerald-600">
-                    <SelectValue placeholder="Categoria" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="todos">Todas as Áreas</SelectItem>
-                    <SelectItem value="medicos">Medicina Humanos</SelectItem>
-                    <SelectItem value="dentistas">Odontologia</SelectItem>
-                    <SelectItem value="veterinarios">Medicina Veterinária</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </CardContent>
-          </Card>
-        </section>
-
-        {/* Lista de Profissionais */}
-        <section className="py-12 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          {profissionaisFiltrados.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {profissionaisFiltrados.map((prof) => (
-                <Card key={prof.id} className="bg-white border border-slate-200 shadow-sm hover:border-emerald-300 transition-colors flex flex-col justify-between overflow-hidden">
-                  <CardContent className="p-6 space-y-4">
+        {/* LISTA DE CARDS */}
+        {profissionaisFiltrados.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {profissionaisFiltrados.map((prof, i) => (
+              <Reveal key={prof.id} delay={i * 60}>
+                <div className="group flex h-full flex-col justify-between overflow-hidden rounded-xl border border-border bg-card transition-all duration-300 hover:-translate-y-1 hover:border-amber-500/40 hover:shadow-md p-6 space-y-6">
+                  <div className="space-y-4">
                     <div className="flex items-center gap-4">
                       <img
                         src={prof.foto}
                         alt={prof.nome}
                         onError={(e) => {
                           e.currentTarget.onerror = null
-                          e.currentTarget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(prof.nome)}&background=065f46&color=fff`
+                          e.currentTarget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(prof.nome)}&background=1b4332&color=f4ede4`
                         }}
-                        className="w-20 h-24 rounded-md object-cover border border-slate-200 shrink-0 bg-slate-100"
+                        className="w-20 h-24 rounded-lg object-cover border border-border shrink-0 bg-slate-100"
                       />
                       <div className="space-y-1">
-                        <span className="text-[11px] font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-100 inline-block">
+                        <span className="rounded bg-amber-500/10 px-2.5 py-0.5 font-mono text-[10.5px] font-semibold uppercase tracking-wider text-amber-deep inline-block">
                           {prof.titulo}
                         </span>
-                        <h3 className="text-base font-bold text-slate-900 leading-snug">{prof.nome}</h3>
-                        <p className="text-xs font-mono text-slate-500">{prof.registro}</p>
-                        <p className="text-xs font-medium text-emerald-700">{prof.especialidade}</p>
+                        <h3 className="font-serif text-[18px] font-medium leading-snug text-ink">
+                          {prof.nome}
+                        </h3>
+                        <p className="font-mono text-[11px] text-ink-soft">{prof.registro}</p>
+                        <p className="text-xs font-semibold text-pine">{prof.especialidade}</p>
                       </div>
                     </div>
 
-                    <div className="border-t border-slate-100 pt-3 space-y-1.5">
+                    <div className="border-t border-border/60 pt-4 space-y-2">
                       {prof.detalhes.map((item, idx) => (
-                        <p key={idx} className="text-xs text-slate-600 leading-relaxed flex items-start gap-1.5">
-                          <span className="text-emerald-600 font-bold">•</span>
+                        <p key={idx} className="text-xs text-ink-soft leading-relaxed flex items-start gap-2">
+                          <span className="text-amber-deep font-bold">•</span>
                           <span>{item}</span>
                         </p>
                       ))}
                     </div>
-                  </CardContent>
+                  </div>
 
-                  <div className="p-6 pt-0">
+                  <div className="pt-2 border-t border-border/40">
                     <a
-                      href="https://wa.me/5518992027116"
+                      href={WHATSAPP}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center justify-center gap-2 w-full bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-medium py-2.5 rounded-md transition-colors"
+                      className="inline-flex items-center justify-center gap-2 w-full bg-pine hover:bg-pine/90 text-paper text-xs font-semibold py-3 rounded-lg transition-colors"
                     >
                       <Send className="w-3.5 h-3.5" />
-                      Consultar Profissional
+                      Agendar com Profissional
                     </a>
                   </div>
-                </Card>
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-12 bg-white rounded-lg border border-slate-200">
-              <p className="text-slate-500 text-sm">Nenhum profissional encontrado para os filtros selecionados.</p>
-            </div>
-          )}
-        </section>
-
-        {/* CTA Profissionais da Saúde */}
-        <section className="bg-emerald-50 py-12 border-t border-emerald-100">
-          <div className="max-w-4xl mx-auto text-center px-4 space-y-4">
-            <div className="inline-flex p-3 bg-white text-emerald-800 rounded-full shadow-xs border border-emerald-100">
-              <UserPlus className="w-6 h-6" />
-            </div>
-            <h2 className="text-xl sm:text-2xl font-bold text-emerald-950">Profissional da Saúde: Torne-se Sócio!</h2>
-            <p className="text-slate-600 text-sm sm:text-base max-w-xl mx-auto">
-              Se você prescreve ou deseja iniciar tratamentos com medicina canabinoide, associar-se garante apoio técnico, respaldo científico e suporte aos seus pacientes.
-            </p>
-            <div>
-              <a
-                href="/seja-um-associado"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 bg-emerald-800 hover:bg-emerald-900 text-white font-medium text-xs sm:text-sm px-6 py-3 rounded-md transition-colors"
-              >
-                Quero Me Associar
-              </a>
-            </div>
+                </div>
+              </Reveal>
+            ))}
           </div>
-        </section>
-      </main>
-    </div>
+        ) : (
+          <div className="text-center py-16 rounded-xl border border-border bg-card">
+            <p className="text-ink-soft text-sm">Nenhum profissional encontrado para os filtros selecionados.</p>
+          </div>
+        )}
+
+        {/* CTA FINAL PARA PROFISSIONAIS */}
+        <div className="rounded-2xl bg-pine p-8 sm:p-12 text-center text-paper space-y-4">
+          <div className="inline-flex p-3 bg-paper/10 text-amber-deep rounded-full mb-2">
+            <UserPlus className="w-6 h-6 text-paper" />
+          </div>
+          <h2 className="text-2xl sm:text-4xl font-serif">Profissional da Saúde: Torne-se Sócio!</h2>
+          <p className="text-paper/80 max-w-xl mx-auto text-sm sm:text-base leading-relaxed">
+            Se você prescreve ou deseja iniciar tratamentos com medicina canabinoide, associar-se garante apoio técnico, respaldo científico e suporte contínuo aos seus pacientes.
+          </p>
+          <div className="pt-3">
+            <ActionLink href="/seja-um-associado" variant="amber">
+              Quero Me Associar
+            </ActionLink>
+          </div>
+        </div>
+      </div>
+    </main>
   )
 }
