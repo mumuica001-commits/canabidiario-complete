@@ -180,51 +180,22 @@
 }
 
 /* ================================================================
-   EFEITO DA GOTA DE ÓLEO — realista, em 4 elementos coordenados:
-   1) .oil-neck  — o fio viscoso que conecta a gota à ponta do frasco
-                    enquanto ela ainda não se soltou (esticando, como
-                    óleo espesso, até romper)
-   2) .oil-drop  — a gota em si: forma, cai acelerando (gravidade),
-                    achata no impacto (splat) e then se expande de
-                    forma orgânica até cobrir a tela
-   3) .oil-shadow— sombra suave que cresce no chão conforme a gota
-                    se aproxima, reforçando a noção de profundidade
-   4) .oil-splash— pingos minúsculos que espirram lateralmente no
-                    instante do impacto
+   EFEITO DA GOTA DE ÓLEO — fluido, em quatro camadas coordenadas:
+   .oil-neck  fio viscoso que estica e rompe
+   .oil-drop  a gota que cai com gravidade e achata no impacto
+   .oil-shadow sombra de contato no ponto de queda
+   .oil-splash respingos laterais
+   .oil-wave  onda âmbar que se espalha suavemente pela tela
    ================================================================ */
 
 @keyframes oilNeckStretch {
-  0% {
-    transform: scaleY(0);
-    opacity: 0;
-  }
-  5% {
-    transform: scaleY(0.06);
-    opacity: 0.9;
-  }
-  30% {
-    transform: scaleY(0.82);
-    opacity: 0.95;
-    animation-timing-function: cubic-bezier(0.55, 0.06, 0.68, 0.19);
-  }
-  41% {
-    transform: scaleY(1);
-    opacity: 0.9;
-  }
-  /* rompe: retrai rapidamente e desaparece, como óleo se partindo */
-  46% {
-    transform: scaleY(0.35);
-    opacity: 0.5;
-    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  52% {
-    transform: scaleY(0);
-    opacity: 0;
-  }
-  100% {
-    transform: scaleY(0);
-    opacity: 0;
-  }
+  0%   { transform: translateX(-50%) scaleY(0);    opacity: 0; }
+  8%   { transform: translateX(-50%) scaleY(0.1);  opacity: 0.9; }
+  34%  { transform: translateX(-50%) scaleY(0.85); opacity: 0.95; }
+  44%  { transform: translateX(-50%) scaleY(1);    opacity: 0.85; }
+  50%  { transform: translateX(-50%) scaleY(0.3);  opacity: 0.4; }
+  56%  { transform: translateX(-50%) scaleY(0);    opacity: 0; }
+  100% { transform: translateX(-50%) scaleY(0);    opacity: 0; }
 }
 
 .oil-neck {
@@ -232,91 +203,63 @@
   top: 0;
   left: 50%;
   width: 3px;
-  height: 128px;
+  height: 120px;
   transform-origin: top center;
   transform: translateX(-50%) scaleY(0);
   background: linear-gradient(
     to bottom,
     rgba(190, 105, 25, 0.85),
-    rgba(150, 78, 15, 0.65) 70%,
-    rgba(150, 78, 15, 0.2)
+    rgba(150, 78, 15, 0.6) 70%,
+    rgba(150, 78, 15, 0.15)
   );
   border-radius: 3px;
-  animation: oilNeckStretch 2.4s cubic-bezier(0.45, 0, 0.55, 1) forwards;
-  filter: blur(0.3px);
+  filter: blur(0.4px);
+  animation: oilNeckStretch 2.6s cubic-bezier(0.45, 0, 0.55, 1) forwards;
 }
 
-@keyframes oilDropRealistic {
-  /* Gota nasce como uma bolha pequena presa na ponta do frasco */
+@keyframes oilDropFall {
   0% {
-    transform: translate(-50%, -100%) scale(0.15, 0.1);
+    transform: translate(-50%, -100%) scale(0.2, 0.14);
     opacity: 0;
     border-radius: 50%;
   }
-  6% {
-    transform: translate(-50%, -100%) scale(0.75, 0.55);
+  8% {
+    transform: translate(-50%, -100%) scale(0.8, 0.6);
     opacity: 1;
-    border-radius: 50% 50% 45% 45% / 65% 65% 35% 35%;
-    animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+    border-radius: 50% 50% 46% 46% / 64% 64% 36% 36%;
+    animation-timing-function: cubic-bezier(0.34, 1.4, 0.64, 1);
   }
-  18% {
-    transform: translate(-50%, -95%) scale(0.85, 0.8);
-    opacity: 1;
-    border-radius: 50% 50% 42% 42% / 68% 68% 32% 32%;
+  22% {
+    transform: translate(-50%, -96%) scale(0.88, 0.86);
+    border-radius: 50% 50% 44% 44% / 66% 66% 34% 34%;
+    animation-timing-function: cubic-bezier(0.5, 0.02, 0.72, 0.2);
   }
-  /* Ainda presa: estica para baixo, puxada pela gravidade (viscosidade) */
-  32% {
-    transform: translate(-50%, calc(-100% + 58px)) scale(0.62, 1.55);
-    opacity: 1;
-    border-radius: 46% 54% 38% 38% / 82% 82% 18% 18%;
-    animation-timing-function: cubic-bezier(0.55, 0.06, 0.68, 0.19);
+  38% {
+    transform: translate(-50%, calc(-100% + 62px)) scale(0.66, 1.5);
+    border-radius: 46% 54% 38% 38% / 80% 80% 20% 20%;
+    animation-timing-function: cubic-bezier(0.55, 0.02, 0.78, 0.12);
   }
-  /* Instante da ruptura: pescoço se rompe, gota assume forma de lágrima */
-  43% {
-    transform: translate(-50%, calc(-100% + 118px)) scale(0.58, 1.85);
-    opacity: 1;
-    border-radius: 44% 56% 34% 34% / 88% 88% 12% 12%;
-    animation-timing-function: cubic-bezier(0.55, 0.06, 0.68, 0.19);
+  56% {
+    transform: translate(-50%, calc(-100% + 160px)) scale(0.72, 1.4);
+    border-radius: 47% 53% 44% 44% / 70% 70% 30% 30%;
+    animation-timing-function: cubic-bezier(0.6, 0.01, 0.82, 0.1);
   }
-  /* Queda livre acelerando — a forma relaxa levemente (tensão superficial) */
-  58% {
-    transform: translate(-50%, calc(-100% + 205px)) scale(0.7, 1.35);
+  /* impacto suave */
+  70% {
+    transform: translate(-50%, calc(-100% + 236px)) scale(1.7, 0.48);
+    border-radius: 50% 50% 48% 48% / 78% 78% 22% 22%;
     opacity: 1;
-    border-radius: 48% 52% 46% 46% / 62% 62% 38% 38%;
-    animation-timing-function: cubic-bezier(0.61, 0.03, 0.79, 0.15);
+    animation-timing-function: cubic-bezier(0.34, 1.3, 0.64, 1);
   }
-  /* IMPACTO: achata bruscamente (splat) */
-  67% {
-    transform: translate(-50%, calc(-100% + 238px)) scale(1.85, 0.42);
-    opacity: 1;
-    border-radius: 50% 50% 48% 48% / 80% 80% 20% 20%;
-    box-shadow:
-      inset 0 -10px 18px rgba(0, 0, 0, 0.35),
-      inset 0 6px 14px rgba(255, 220, 150, 0.75),
-      0 14px 30px rgba(150, 78, 15, 0.55);
-    animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-  /* Pequeno ricochete elástico antes de assentar */
-  75% {
-    transform: translate(-50%, calc(-100% + 234px)) scale(1.15, 0.92);
-    opacity: 1;
+  78% {
+    transform: translate(-50%, calc(-100% + 233px)) scale(1.15, 0.95);
     border-radius: 46% 54% 46% 54% / 55% 55% 45% 45%;
-  }
-  81% {
-    transform: translate(-50%, calc(-100% + 236px)) scale(1.3, 0.8);
     opacity: 1;
-    border-radius: 45% 55% 42% 58% / 52% 58% 42% 48%;
-  }
-  /* Expansão orgânica cobrindo a tela — mancha de óleo se espalhando */
-  92% {
-    transform: translate(-50%, calc(-100% + 236px)) scale(20, 16);
-    opacity: 0.97;
-    border-radius: 42% 58% 46% 54% / 48% 52% 48% 52%;
   }
   100% {
-    transform: translate(-50%, calc(-100% + 236px)) scale(100, 90);
+    transform: translate(-50%, calc(-100% + 236px)) scale(1.5, 0.7);
+    border-radius: 48%;
     opacity: 0;
-    border-radius: 0%;
   }
 }
 
@@ -326,8 +269,8 @@
   left: 50%;
   width: 24px;
   height: 30px;
-  transform: translate(-50%, -100%) scale(0.15, 0.1);
-  animation: oilDropRealistic 2.4s forwards;
+  transform: translate(-50%, -100%) scale(0.2, 0.14);
+  animation: oilDropFall 2.6s forwards;
   background: radial-gradient(
     circle at 32% 30%,
     rgba(255, 238, 180, 0.98) 0%,
@@ -335,31 +278,14 @@
     rgba(170, 90, 20, 0.95) 75%,
     rgba(90, 42, 8, 1) 100%
   );
-  filter: url(#oil-refraction);
 }
 
 @keyframes oilShadowGrow {
-  0%,
-  48% {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.2, 0.15);
-  }
-  60% {
-    opacity: 0.3;
-    transform: translate(-50%, -50%) scale(0.8, 0.5);
-  }
-  67% {
-    opacity: 0.42;
-    transform: translate(-50%, -50%) scale(1.15, 0.7);
-  }
-  80% {
-    opacity: 0.15;
-    transform: translate(-50%, -50%) scale(1.6, 1);
-  }
-  100% {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(1.8, 1.1);
-  }
+  0%, 50%  { opacity: 0;    transform: translate(-50%, -50%) scale(0.2, 0.15); }
+  64%      { opacity: 0.3;  transform: translate(-50%, -50%) scale(0.85, 0.55); }
+  70%      { opacity: 0.4;  transform: translate(-50%, -50%) scale(1.2, 0.72); }
+  85%      { opacity: 0.12; transform: translate(-50%, -50%) scale(1.7, 1); }
+  100%     { opacity: 0;    transform: translate(-50%, -50%) scale(1.9, 1.1); }
 }
 
 .oil-shadow {
@@ -369,28 +295,27 @@
   width: 46px;
   height: 20px;
   border-radius: 50%;
-  background: radial-gradient(ellipse, rgba(40, 20, 5, 0.55) 0%, rgba(40, 20, 5, 0) 72%);
+  background: radial-gradient(ellipse, rgba(40, 20, 5, 0.5) 0%, rgba(40, 20, 5, 0) 72%);
   transform: translate(-50%, -50%) scale(0.2, 0.15);
-  animation: oilShadowGrow 2.4s forwards;
+  animation: oilShadowGrow 2.6s forwards;
   filter: blur(2px);
 }
 
 @keyframes oilSplashFly {
-  0%,
-  64% {
+  0%, 68% {
     transform: translate(-50%, -50%) translate(0, 0) scale(0);
     opacity: 0;
   }
-  70% {
-    transform: translate(-50%, -50%) translate(calc(var(--dx) * 0.3), calc(var(--dy) * 0.3)) scale(1);
+  74% {
+    transform: translate(-50%, -50%) translate(calc(var(--dx) * 0.35), calc(var(--dy) * 0.35)) scale(1);
     opacity: 1;
   }
-  85% {
-    transform: translate(-50%, -50%) translate(var(--dx), var(--dy)) scale(0.55);
-    opacity: 0.85;
+  88% {
+    transform: translate(-50%, -50%) translate(var(--dx), var(--dy)) scale(0.5);
+    opacity: 0.7;
   }
   100% {
-    transform: translate(-50%, -50%) translate(calc(var(--dx) * 1.3), calc(var(--dy) * 1.3 + 26px)) scale(0.15);
+    transform: translate(-50%, -50%) translate(calc(var(--dx) * 1.25), calc(var(--dy) * 1.25 + 26px)) scale(0.12);
     opacity: 0;
   }
 }
@@ -403,6 +328,45 @@
   height: 6px;
   border-radius: 50%;
   background: radial-gradient(circle at 35% 35%, rgba(255, 225, 170, 0.95), rgba(160, 85, 20, 0.95));
-  animation: oilSplashFly 2.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  animation: oilSplashFly 2.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
+/* Onda âmbar: cresce do ponto de impacto e some suavemente */
+@keyframes oilWaveSpread {
+  0%, 66% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+  }
+  72% {
+    transform: translate(-50%, -50%) scale(0.12);
+    opacity: 0.85;
+    animation-timing-function: cubic-bezier(0.22, 0.8, 0.3, 1);
+  }
+  88% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.35);
+    opacity: 0;
+  }
+}
+
+.oil-wave {
+  position: absolute;
+  top: 236px;
+  left: 50%;
+  width: 260vmax;
+  height: 260vmax;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  background: radial-gradient(
+    circle,
+    rgba(224, 160, 70, 0.5) 0%,
+    rgba(206, 133, 45, 0.32) 45%,
+    rgba(190, 110, 30, 0.12) 72%,
+    rgba(190, 110, 30, 0) 100%
+  );
+  animation: oilWaveSpread 2.6s forwards;
+  will-change: transform, opacity;
+}
