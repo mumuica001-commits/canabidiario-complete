@@ -9,7 +9,7 @@ import { ArrowUpRight, Sparkles } from "lucide-react";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Associação Prudentina de Cannabis Medicinal" },
+      { title: "Canabidiário" },
       {
         name: "description",
         content:
@@ -33,7 +33,7 @@ function IndexPage() {
           <div className="space-y-6 lg:col-span-7">
             <div className="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3.5 py-1 text-xs font-mono font-medium text-amber-deep">
               <Sparkles className="h-3.5 w-3.5" />
-              <span>Canabidiário — Medicina Canabinoide</span>
+              <span>Associação Prudentina de Cannabis Medicinal</span>
             </div>
 
             <h1 className="font-serif text-4xl sm:text-6xl font-medium leading-[1.08] text-pine">
