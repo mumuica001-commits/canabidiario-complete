@@ -14,15 +14,15 @@ export function Eyebrow({
 }) {
   return (
     <span
-      className={`inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 font-mono text-[11.5px] uppercase tracking-[0.12em] ${
+      className={`inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 font-mono text-[11.5px] font-bold uppercase tracking-[0.12em] ${
         tone === "amber"
-          ? "border-amber-deep/25 bg-amber-soft/40 text-amber-deep"
-          : "border-paper/25 bg-paper/10 text-amber-soft"
+          ? "border-amber-600/30 bg-amber-500/10 text-amber-900"
+          : "border-paper/30 bg-paper/10 text-amber-200"
       } ${center ? "justify-center" : ""}`}
     >
       <span
         className={`inline-block h-[7px] w-[7px] rounded-full ${
-          tone === "amber" ? "bg-amber-deep" : "bg-amber-soft"
+          tone === "amber" ? "bg-amber-600" : "bg-amber-300"
         }`}
       />
       {children}
@@ -46,8 +46,8 @@ export function SectionHead({
       <div>
         <Eyebrow tone={tone === "dark" ? "soft" : "amber"}>{eyebrow}</Eyebrow>
         <h2
-          className={`mt-4 text-[clamp(28px,3.4vw,44px)] leading-[1.05] ${
-            tone === "dark" ? "text-paper" : ""
+          className={`mt-4 text-[clamp(28px,3.4vw,44px)] font-serif font-medium leading-[1.05] ${
+            tone === "dark" ? "text-paper" : "text-pine"
           }`}
         >
           {title}
@@ -55,8 +55,8 @@ export function SectionHead({
       </div>
       {description ? (
         <p
-          className={`max-w-[360px] text-[15px] ${
-            tone === "dark" ? "text-paper/70" : "text-ink-soft"
+          className={`max-w-[420px] text-[15px] leading-relaxed ${
+            tone === "dark" ? "text-paper/80" : "text-ink-soft"
           }`}
         >
           {description}
@@ -67,16 +67,17 @@ export function SectionHead({
 }
 
 const base =
-  "relative inline-flex items-center gap-2 whitespace-nowrap rounded-full border border-transparent px-6 py-3 text-sm font-semibold tracking-[-0.01em] transition-[transform,background-color,border-color,color,box-shadow] duration-300 ease-out";
+  "relative inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md px-6 py-3 text-sm font-semibold tracking-[-0.01em] transition-all duration-200 ease-out shadow-xs";
 
 const variants = {
   primary:
-    "bg-pine text-paper shadow-[0_10px_30px_-12px_oklch(0.298_0.07_155_/_0.6)] hover:bg-pine-2 hover:-translate-y-0.5 hover:shadow-[0_14px_36px_-12px_oklch(0.298_0.07_155_/_0.7)]",
+    "bg-emerald-800 text-white shadow-sm hover:bg-emerald-900 hover:shadow-md",
   amber:
-    "bg-gradient-to-br from-amber to-amber-deep text-accent-foreground shadow-[var(--shadow-glow-amber)] hover:-translate-y-0.5 hover:shadow-[0_16px_40px_-10px_oklch(0.6_0.16_53_/_0.6)]",
+    "bg-emerald-800 text-white shadow-sm hover:bg-emerald-900 hover:shadow-md",
   ghost:
-    "border-border-strong text-ink hover:border-pine hover:bg-pine/5 hover:-translate-y-0.5",
-  ghostDark: "border-paper/30 text-paper hover:border-paper hover:bg-paper/10 hover:-translate-y-0.5",
+    "border border-border bg-card text-ink hover:border-emerald-800 hover:bg-card-soft",
+  ghostDark:
+    "border border-paper/30 bg-paper/10 text-paper hover:border-paper hover:bg-paper/20",
 } as const;
 
 type Variant = keyof typeof variants;
@@ -95,6 +96,7 @@ export function ActionLink({
   className?: string;
 }) {
   const cls = `${base} ${variants[variant]} ${className}`;
+  
   if (to) {
     return (
       <Link to={to} className={cls}>
@@ -102,8 +104,9 @@ export function ActionLink({
       </Link>
     );
   }
+  
   return (
-    <a href={href} target="_blank" rel="noopener" className={cls}>
+    <a href={href} target="_blank" rel="noopener noreferrer" className={cls}>
       {children}
     </a>
   );
@@ -112,7 +115,7 @@ export function ActionLink({
 export function ArrowRight({ className = "h-3.5 w-3.5" }: { className?: string }) {
   return (
     <svg viewBox="0 0 14 14" fill="none" className={className} aria-hidden="true">
-      <path d="M2 7H12M12 7L8 3M12 7L8 11" stroke="currentColor" strokeWidth="1.3" />
+      <path d="M2 7H12M12 7L8 3M12 7L8 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
@@ -129,16 +132,14 @@ export function PageHero({
   children?: ReactNode;
 }) {
   return (
-    <section className="grain relative overflow-hidden border-b border-border bg-paper-deep py-20 md:py-28">
-      <div className="mesh-ambient">
-        <span className="b1" />
-        <span className="b2" />
-      </div>
-      <div className="wrap relative z-[2]">
+    <section className="relative overflow-hidden border-b border-border bg-paper-deep py-16 md:py-24">
+      <div className="wrap relative z-[2] space-y-6">
         <Eyebrow>{eyebrow}</Eyebrow>
-        <h1 className="mt-6 max-w-[860px] text-[clamp(34px,5vw,60px)] leading-[1.02]">{title}</h1>
-        {lede ? <p className="mt-6 max-w-[560px] text-[17px] text-ink-soft">{lede}</p> : null}
-        {children ? <div className="mt-9 flex flex-wrap items-center gap-4">{children}</div> : null}
+        <h1 className="max-w-[860px] font-serif text-[clamp(34px,5vw,56px)] font-medium leading-[1.05] text-pine">
+          {title}
+        </h1>
+        {lede ? <p className="max-w-[620px] text-[16px] sm:text-[18px] leading-relaxed text-ink-soft">{lede}</p> : null}
+        {children ? <div className="flex flex-wrap items-center gap-4 pt-2">{children}</div> : null}
       </div>
     </section>
   );

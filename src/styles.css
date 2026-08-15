@@ -514,3 +514,16 @@
   animation: oilSplashFly 2.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
+:root {
+  --ink: #111827;
+  --ink-soft: #4b5563;
+  --pine: #064e3b;
+  --paper: #fcfbf9;
+  --paper-deep: #f5f2eb;
+  --amber-deep: #b45309;
+}
+
+body {
+  color: #1f2937;
+  background-color: #fcfbf9;
+}
