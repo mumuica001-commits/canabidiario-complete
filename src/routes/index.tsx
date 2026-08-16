@@ -18,7 +18,7 @@ import {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Canabidiário — Consultas e Tratamento com Cannabis Medicinal" },
+      { title: "Canabidiário | Medicina Canabinoide" },
       {
         name: "description",
         content:
@@ -70,7 +70,7 @@ function IndexPage() {
         <div className="wrap grid items-center gap-12 lg:grid-cols-12">
           <div className="space-y-6 lg:col-span-7">
             <span className="font-mono text-xs font-bold uppercase tracking-wider text-pine">
-              Acolhimento Clínico & Medicina Canabinoide
+              Associação Prudentina de Cannabis Medicinal
             </span>
 
             <h1 className="font-serif text-4xl sm:text-6xl font-medium leading-[1.08] text-pine">
