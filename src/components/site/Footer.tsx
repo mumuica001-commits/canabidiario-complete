@@ -1,105 +1,96 @@
 import { Link } from "@tanstack/react-router";
-import { Logo } from "./Header";
 import { WHATSAPP } from "./ui";
-
-const cols = [
-  {
-    title: "Institucional",
-    items: [
-      { label: "Sobre a associação", to: "/institucional" },
-      { label: "Objetivos", to: "/institucional" },
-      { label: "Estatuto", to: "/institucional" },
-      { label: "Contato", to: "/contato" },
-    ],
-  },
-  {
-    title: "Patologias",
-    items: [
-      { label: "DTM", to: "/patologias" },
-      { label: "Neuralgia do trigêmeo", to: "/patologias" },
-      { label: "Ansiedade", to: "/patologias" },
-      { label: "Alzheimer & Parkinson", to: "/patologias" },
-    ],
-  },
-  {
-    title: "Profissionais",
-    items: [
-      { label: "Profissionais associados", to: "/profissionais" },
-      { label: "Quero me associar", to: "/profissionais" },
-      { label: "Quero colaborar", to: "/profissionais" },
-    ],
-  },
-  {
-    title: "Pacientes",
-    items: [
-      { label: "Quero me associar", to: "/contato" },
-      { label: "Notícias", to: "/noticias" },
-    ],
-  },
-];
 
 export function Footer() {
   return (
-    <footer className="grain relative overflow-hidden border-t border-border bg-pine py-16 text-paper">
-      <div className="wrap relative z-[2]">
-        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-[1.6fr_repeat(4,1fr)]">
-          <div className="max-w-[320px]">
-            <Link to="/" className="inline-flex items-center gap-2.5 rounded-2xl bg-paper/95 px-4 py-2.5 text-[22px] font-semibold text-pine shadow-lg">
-              <Logo className="h-8" />
+    <footer className="border-t border-border bg-paper-deep text-ink-soft">
+      <div className="wrap py-16">
+        <div className="grid gap-10 md:grid-cols-12">
+          
+          <div className="space-y-4 md:col-span-4">
+            {/* LOGO NO RODAPÉ */}
+            <Link to="/" className="inline-block transition-opacity hover:opacity-90">
+              <img
+                src="/logo.png"
+                alt="Logo Canabidiário"
+                className="h-10 w-auto object-contain"
+              />
             </Link>
-            <p className="mt-4 text-sm text-paper/65">
-              Associação dedicada a conectar pacientes a profissionais prescritores de cannabis
-              medicinal, com acompanhamento humano do início ao fim.
+            <p className="text-xs leading-relaxed max-w-sm">
+              Associação dedicada ao acolhimento de pacientes, fomento científico e conexão com médicos e odontologistas legalmente habilitados para a prescrição e acompanhamento com cannabis medicinal.
             </p>
-            <div className="mt-5 flex gap-3">
-              <a
-                href={WHATSAPP}
-                target="_blank"
-                rel="noopener"
-                aria-label="WhatsApp"
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-paper/20 text-paper transition-colors hover:border-amber-soft hover:bg-amber-soft hover:text-pine"
-              >
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-4 w-4">
-                  <path d="M12 2C6.5 2 2 6.5 2 12C2 13.9 2.5 15.7 3.5 17.2L2 22L7 20.6C8.4 21.5 10.1 22 12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2Z" />
-                </svg>
-              </a>
-              <a
-                href="https://www.instagram.com/canabidiario"
-                target="_blank"
-                rel="noopener"
-                aria-label="Instagram"
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-paper/20 text-paper transition-colors hover:border-amber-soft hover:bg-amber-soft hover:text-pine"
-              >
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-4 w-4">
-                  <rect x="3" y="3" width="18" height="18" rx="5" />
-                  <circle cx="12" cy="12" r="4" />
-                  <circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" />
-                </svg>
-              </a>
-            </div>
           </div>
 
-          {cols.map((col) => (
-            <div key={col.title}>
-              <h4 className="font-mono text-[11.5px] uppercase tracking-[0.1em] text-amber-soft">
-                {col.title}
-              </h4>
-              <ul className="mt-4 flex flex-col gap-2.5">
-                {col.items.map((item) => (
-                  <li key={item.label}>
-                    <Link to={item.to} className="text-sm text-paper/65 transition-colors hover:text-paper">
-                      {item.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          <div className="space-y-3 md:col-span-3">
+            <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-pine">
+              Navegação
+            </h4>
+            <ul className="space-y-2 text-xs">
+              <li>
+                <Link to="/patologias" className="hover:text-pine transition-colors">
+                  Condições Acompanhadas
+                </Link>
+              </li>
+              <li>
+                <Link to="/profissionais" className="hover:text-pine transition-colors">
+                  Corpo Clínico & Especialistas
+                </Link>
+              </li>
+              <li>
+                <Link to="/institucional" className="hover:text-pine transition-colors">
+                  Sobre a Associação
+                </Link>
+              </li>
+              <li>
+                <Link to="/noticias" className="hover:text-pine transition-colors">
+                  Portal de Artigos e Notícias
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          <div className="space-y-3 md:col-span-2">
+            <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-pine">
+              Atendimento
+            </h4>
+            <ul className="space-y-2 text-xs">
+              <li>
+                <a href={WHATSAPP} target="_blank" rel="noreferrer" className="hover:text-pine transition-colors">
+                  WhatsApp Oficial
+                </a>
+              </li>
+              <li>
+                <span className="block text-ink-soft">Segunda a Sexta</span>
+                <span className="block font-mono text-[11px]">08:00 às 18:00</span>
+              </li>
+            </ul>
+          </div>
+
+          <div className="space-y-3 md:col-span-3">
+            <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-pine">
+              Segurança Regulatória
+            </h4>
+            <p className="text-[11px] leading-relaxed">
+              Tratamentos prescritos estritamente por profissionais com registro ativo no CRM e CRO, conforme resoluções da Anvisa (RDC nº 660/2022 e RDC nº 327/2019).
+            </p>
+          </div>
+
         </div>
 
-        <div className="mt-14 flex flex-col gap-2 border-t border-paper/12 pt-6 font-mono text-[11.5px] text-paper/55 md:flex-row md:justify-between">
-          <p>© 2026 Canabidiário — Todos os direitos reservados.</p>
-          <p>Conteúdo informativo. Não substitui consulta médica.</p>
+        {/* Disclaimer Médico & Legal */}
+        <div className="mt-12 pt-8 border-t border-border/80 space-y-4">
+          <p className="text-[11px] leading-relaxed text-ink-soft/80 text-justify">
+            <strong>Aviso Legal & Sanitário:</strong> As informações contidas neste portal têm caráter exclusivamente educativo e informativo, não devendo ser utilizadas para automedicação ou como substitutas de consultas, diagnósticos ou prescrições individualizadas. A indicação de canabinoides depende de prévia avaliação clínica minuciosa por profissional habilitado.
+          </p>
+
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2 text-[11px] text-ink-soft/70">
+            <span>© {new Date().getFullYear()} Canabidiário. Todos os direitos reservados.</span>
+            <div className="flex items-center gap-4">
+              <span>Termos de Uso</span>
+              <span>•</span>
+              <span>Privacidade & LGPD</span>
+            </div>
+          </div>
         </div>
       </div>
     </footer>
