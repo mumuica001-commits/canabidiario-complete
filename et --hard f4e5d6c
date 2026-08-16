@@ -1,0 +1,31 @@
+[33m41e97b8[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m HEAD@{0}: reset: moving to HEAD~1
+[33mb3f6056[m HEAD@{1}: reset: moving to HEAD~1
+[33mf75cd80[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{2}: commit: Ajustando nomes
+[33mb3f6056[m HEAD@{3}: reset: moving to origin/main
+[33mb3f6056[m HEAD@{4}: commit: Ajustes no visual
+[33m41e97b8[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m HEAD@{5}: commit: index.tsx
+[33mad8bd76[m HEAD@{6}: commit: Frasco animado
+[33m4c2e255[m HEAD@{7}: commit: Prováveis ultimas edições
+[33m73f7847[m HEAD@{8}: commit: styles.css e index.tsx
+[33m2a504c6[m HEAD@{9}: commit: Arrumando patologias.index
+[33me56c3ec[m HEAD@{10}: commit: Alterações nos textos invisiveis
+[33mdf33d51[m HEAD@{11}: commit: Reveal
+[33m7f6227c[m HEAD@{12}: commit: Editando cabeçalho
+[33m87d295d[m HEAD@{13}: commit: Arrumando cores
+[33m3721fd9[m HEAD@{14}: commit: Materias
+[33m514056d[m HEAD@{15}: rebase (finish): returning to refs/heads/main
+[33m514056d[m HEAD@{16}: rebase (start): checkout HEAD~5
+[33mc8d20d0[m HEAD@{17}: commit: Restaurando
+[33ma7bf68a[m HEAD@{18}: commit: Header
+[33m1f055a2[m HEAD@{19}: commit: styles.css
+[33ma322c87[m HEAD@{20}: commit: Tirando gota do frasco
+[33m514056d[m HEAD@{21}: commit: Modernização
+[33mfb96e12[m HEAD@{22}: commit: Modernização
+[33m89ca1d0[m HEAD@{23}: rebase (finish): returning to refs/heads/main
+[33m89ca1d0[m HEAD@{24}: rebase (continue): Primeiras edições
+[33m33f7e04[m HEAD@{25}: commit: Atualiza a pagina inicial com design de quadrinhos retos
+[33me6d4dd3[m HEAD@{26}: commit: Edição 2
+[33ma8aefad[m HEAD@{27}: pull origin main --rebase (start): checkout a8aefadff88e716face09ab14d87efdd6bddff6a
+[33me4851d4[m HEAD@{28}: Branch: renamed refs/heads/Main to refs/heads/main
+[33me4851d4[m HEAD@{30}: Branch: renamed refs/heads/master to refs/heads/Main
+[33me4851d4[m HEAD@{32}: commit (initial): Primeiras edições
